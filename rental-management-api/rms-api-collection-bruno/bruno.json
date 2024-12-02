@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "rms-api-collection-bruno",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

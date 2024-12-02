@@ -16,7 +16,7 @@ public class GenericResponseUtil {
     }
 
     public ResponseEntity<ResponseDto> createErrorResponse(String message, String resCode) {
-        return new ResponseEntity<>(new ResponseDto(message, resCode), HttpStatus.valueOf(resCode));
+        return new ResponseEntity<>(new ResponseDto(message, resCode), HttpStatus.valueOf(Integer.parseInt(resCode)));
     }
 
     public ResponseEntity<ResponseDto> createSuccessResponse(Object data) {
