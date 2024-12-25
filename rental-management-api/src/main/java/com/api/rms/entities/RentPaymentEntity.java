@@ -21,7 +21,7 @@ public class RentPaymentEntity extends BaseEntity {
     private double utilityBill;
     private double othersBill;
     @JsonFormat(pattern = "dd-MM-yyyy", timezone = "Asia/Dhaka")
-    private Timestamp paymentDate;
+    private Date paymentDate;
     private String flatNo;
 
     @OneToOne(fetch = FetchType.LAZY)

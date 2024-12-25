@@ -1,10 +1,7 @@
 package com.api.rms.services;
 
 import com.api.rms.configs.JwtService;
-import com.api.rms.dtos.AuthenticationResDto;
-import com.api.rms.dtos.ResponseDto;
-import com.api.rms.dtos.UserAuthReq;
-import com.api.rms.dtos.UserDto;
+import com.api.rms.dtos.*;
 import com.api.rms.entities.UserEntity;
 import com.api.rms.interfaces.EncoderDecoder;
 import com.api.rms.interfaces.UserAuthenticationService;
@@ -12,14 +9,20 @@ import com.api.rms.repository.UserRepo;
 import com.api.rms.utilities.GenericResponseUtil;
 import com.api.rms.utilities.Utility;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,6 +33,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     private final AuthenticationManager authManager;
     private final GenericResponseUtil resUtil;
     private final JwtService jwtService;
+    private final PasswordEncoder passEncoder;
 
     @Value("${password.salt}")
     private String salt;
@@ -59,6 +63,40 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             return resUtil.createSuccessResponse(resDto);
         } catch (Exception e) {
             return resUtil.createErrorResponse("Something Went Wrong!");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> userSignup(UserSignupReqDto reqDto, int userType, int userStatus) {
+        try {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setName(reqDto.getName());
+            userEntity.setUsername(reqDto.getUsername());
+            userEntity.setEmail(reqDto.getEmail());
+            userEntity.setPhone(reqDto.getPhone());
+            userEntity.setAddress(reqDto.getAddress());
+            userEntity.setDateOfBirth(reqDto.getDateOfBirth());
+
+            // Encoding the origin password
+            // This will help in retrieving the user's password later
+            String encodedPass = encoderDecoder.encodeString(reqDto.getPassword(), salt);
+            userEntity.setPassword(encodedPass);
+            userEntity.setPasswordEncoded(passEncoder.encode(reqDto.getPassword()));
+
+            // Default user is "Renter"
+            userEntity.setUserType(userType);
+
+            userEntity.setSignupDate(new Date(System.currentTimeMillis()));
+            userEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+            userEntity.setStatus(userStatus);
+
+            UserEntity savedEntity = userRepo.save(userEntity);
+
+            return resUtil.createSuccessResponse(savedEntity, "User signup successful");
+        } catch (DataIntegrityViolationException e) {
+            return resUtil.createDuplicateKeyResponse(e);
+        } catch (Exception e) {
+            return resUtil.createErrorResponse("Something went wrong!");
         }
     }
 }

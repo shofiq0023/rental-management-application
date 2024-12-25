@@ -30,8 +30,9 @@ public class UserEntity extends BaseEntity {
     private String passwordEncoded;
     private int userType;
     private String address;
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Asia/Dhaka")
-    private Timestamp signupDate;
+    @JsonFormat(pattern = "dd-MM-yyyy", timezone = "Asia/Dhaka")
+    private Date signupDate;
     @JsonFormat(pattern = "dd-MM-yyyy", timezone = "Asia/Dhaka")
     private Date dateOfBirth;
+    private int status;
 }

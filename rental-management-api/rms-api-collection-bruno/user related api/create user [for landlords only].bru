@@ -1,0 +1,28 @@
+meta {
+  name: create user [for landlords only]
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:9092/api/v1/create/user
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzUxMjU2MTksImV4cCI6MTczNTIxMjAxOX0.2g2kKDwMF3OECeTZ-FEJSU8kbXvVTmqbN56nDCJ_gAo
+}
+
+body:json {
+  {
+    "name": "Kawsar Uddin",
+    "username": "kawser2",
+    "email": "kawser@gmail.com2",
+    "phone": "015151885582",
+    "password": "123456",
+    "address": "Dhaka",
+    "dateOfBirth": "29-02-2024",
+    "userType": 2
+  }
+}
