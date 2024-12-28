@@ -32,14 +32,17 @@ public class GenericResponseUtil {
         return ResponseEntity.ok(new ResponseDto(data, message, "200"));
     }
 
+    public ResponseEntity<ResponseDto> createSuccessResponse(String message) {
+        return ResponseEntity.ok(new ResponseDto(message, "200"));
+    }
+
     public ResponseEntity<ResponseDto> createDuplicateKeyResponse(DataIntegrityViolationException e) {
         Throwable rootCause = e.getCause();
 
-        if (rootCause instanceof ConstraintViolationException) {
-            ConstraintViolationException ex = (ConstraintViolationException) rootCause;
+        if (rootCause instanceof ConstraintViolationException ex) {
             if (ex.getSQLState().equals("23505")) {
                 // Getting the index of the error message where the Key and values are shown
-                // e.g Key (email)=(value) in error message
+                // e.g. Key (email)=(value) in error message
                 int trimmedMessage = ex.getErrorMessage().indexOf("(");
                 String errorMsg = ex.getErrorMessage().substring(trimmedMessage, ex.getErrorMessage().length() - 2);
 

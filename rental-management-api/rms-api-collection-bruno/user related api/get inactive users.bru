@@ -1,0 +1,15 @@
+meta {
+  name: get inactive users
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:9092/api/v1/inactive/users
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzUzNzg1NjIsImV4cCI6MTczNTQ2NDk2Mn0.BXgSVFI5ACsyRBtuZ19_aamo8g2dx4YP3XkbNgROU4c
+}

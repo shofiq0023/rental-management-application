@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserAuthenticationController {
     private final UserAuthenticationService service;
 
+    // Api for logging in
     @PostMapping("/authenticate")
     public ResponseEntity<ResponseDto> userAuthenticate(@RequestBody UserAuthReq req) {
         return service.userAuthenticate(req);
     }
 
+    // User signup api
     @PostMapping("/signup")
     public ResponseEntity<ResponseDto> userSignup(@RequestBody UserSignupReqDto reqDto) {
         return service.userSignup(reqDto, 2, 0);
@@ -30,5 +32,16 @@ public class UserAuthenticationController {
     @PostMapping("/create/user")
     public ResponseEntity<ResponseDto> createUser(@RequestBody UserSignupReqDto reqDto) {
         return service.userSignup(reqDto, reqDto.getUserType(), 1);
+    }
+
+    // Get Inactive User's List
+    @GetMapping("/inactive/users")
+    public ResponseEntity<ResponseDto> getInactiveUsers() {
+        return service.getInactiveUsers();
+    }
+
+    @PostMapping("/active/user/{userId}")
+    public ResponseEntity<ResponseDto> activeUser(@PathVariable("userId") Long userId) {
+        return service.activeUser(userId);
     }
 }

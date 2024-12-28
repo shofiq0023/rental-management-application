@@ -20,7 +20,7 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private final String[] whiteListApi = {"/api/v1/authenticate", "/api/v1/signup"};
-    private final String[] adminApiList = {"/api/v1/create/user"};
+    private final String[] adminApiList = {"/api/v1/create/user", "/api/v1/inactive/users", "/api/v1/active/user/*"};
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

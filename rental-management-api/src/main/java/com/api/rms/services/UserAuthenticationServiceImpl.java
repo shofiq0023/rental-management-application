@@ -20,10 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -95,6 +93,40 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             return resUtil.createSuccessResponse(savedEntity, "User signup successful");
         } catch (DataIntegrityViolationException e) {
             return resUtil.createDuplicateKeyResponse(e);
+        } catch (Exception e) {
+            return resUtil.createErrorResponse("Something went wrong!");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> getInactiveUsers() {
+
+        try {
+            List<UserEntity> userList = new ArrayList<>(userRepo.findByStatusOrderByCreatedAtDesc(0));
+            List<UserDto> userDtos = userList.stream().map(u -> Utility.copyProperties(u, UserDto.class)).toList();
+
+            if (userDtos.isEmpty()) {
+                return resUtil.createSuccessResponse("No inactive users found");
+            } else {
+                return resUtil.createSuccessResponse(userDtos, "Inactive users found");
+            }
+        } catch (Exception e) {
+            return resUtil.createErrorResponse("Something went wrong!");
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> activeUser(Long userId) {
+        try {
+            Optional<UserEntity> userOpt = userRepo.findById(userId);
+
+            if (userOpt.isEmpty()) {
+                return resUtil.createSuccessResponse("No user found with the given id");
+            }
+
+            userRepo.updateUserStatus(1, userId);
+
+            return resUtil.createSuccessResponse("User activated");
         } catch (Exception e) {
             return resUtil.createErrorResponse("Something went wrong!");
         }

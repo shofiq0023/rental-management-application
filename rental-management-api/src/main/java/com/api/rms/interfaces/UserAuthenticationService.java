@@ -9,4 +9,8 @@ public interface UserAuthenticationService {
     ResponseEntity<ResponseDto> userAuthenticate(UserAuthReq req);
 
     ResponseEntity<ResponseDto> userSignup(UserSignupReqDto reqDto, int userType, int userStatus);
+
+    ResponseEntity<ResponseDto> getInactiveUsers();
+
+    ResponseEntity<ResponseDto> activeUser(Long userId);
 }
