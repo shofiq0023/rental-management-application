@@ -1,6 +1,5 @@
 package com.api.rms.configs;
 
-import com.api.rms.utilities.GenericResponseUtil;
 import com.api.rms.utilities.ResponseWriter;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;

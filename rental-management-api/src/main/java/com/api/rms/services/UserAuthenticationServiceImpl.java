@@ -9,7 +9,6 @@ import com.api.rms.repository.UserRepo;
 import com.api.rms.utilities.GenericResponseUtil;
 import com.api.rms.utilities.Utility;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,7 +58,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
             return resUtil.createSuccessResponse(resDto);
         } catch (Exception e) {
-            return resUtil.createErrorResponse("Something Went Wrong!");
+            return resUtil.createErrorResponse();
         }
     }
 
@@ -94,7 +92,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         } catch (DataIntegrityViolationException e) {
             return resUtil.createDuplicateKeyResponse(e);
         } catch (Exception e) {
-            return resUtil.createErrorResponse("Something went wrong!");
+            return resUtil.createErrorResponse();
         }
     }
 
@@ -111,7 +109,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
                 return resUtil.createSuccessResponse(userDtos, "Inactive users found");
             }
         } catch (Exception e) {
-            return resUtil.createErrorResponse("Something went wrong!");
+            return resUtil.createErrorResponse();
         }
     }
 
@@ -128,7 +126,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
             return resUtil.createSuccessResponse("User activated");
         } catch (Exception e) {
-            return resUtil.createErrorResponse("Something went wrong!");
+            return resUtil.createErrorResponse();
         }
     }
 }
