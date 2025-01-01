@@ -1,25 +1,23 @@
-package com.api.rms.entities;
+package com.api.rms.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
 
-@MappedSuperclass
 @Getter
 @Setter
-public class BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@AllArgsConstructor
+@NoArgsConstructor
+public class BuildingsDto {
     private Long id;
-
-    @Column(name = "created_at")
+    private String name;
+    private String address;
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Asia/Dhaka")
     private Timestamp createdAt;
-
-    @Column(name = "updated_at")
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss", timezone = "Asia/Dhaka")
     private Timestamp updatedAt;
 }

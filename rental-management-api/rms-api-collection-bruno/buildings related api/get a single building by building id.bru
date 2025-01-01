@@ -1,0 +1,15 @@
+meta {
+  name: get a single building by building id
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:9092/api/v1/building/2
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzU3NTEwNTksImV4cCI6MTczNTgzNzQ1OX0.MP2itHyRxNqXCHRXP8DOU-x-rIlFBonGP4HibN11QoM
+}

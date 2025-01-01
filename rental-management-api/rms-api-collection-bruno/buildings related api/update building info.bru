@@ -1,0 +1,22 @@
+meta {
+  name: update building info
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:9092/api/v1/building/2
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzU3NTEwNTksImV4cCI6MTczNTgzNzQ1OX0.MP2itHyRxNqXCHRXP8DOU-x-rIlFBonGP4HibN11QoM
+}
+
+body:json {
+  {
+    "name": "SkyFall Villa",
+    "address": "Narayanganj, Dhaka-1632"
+  }
+}
