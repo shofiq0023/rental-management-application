@@ -12,14 +12,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class BuildingFlatEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "flat_no", nullable = false)
-    private Long flatNo;
+public class BuildingFlatEntity extends BaseEntity{
+    private String flatNo;
+    private boolean isRented;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id", nullable = false)
-    private BuildingsEntity buildings;
+    private BuildingsEntity building;
 
 }

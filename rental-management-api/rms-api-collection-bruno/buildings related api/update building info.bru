@@ -5,18 +5,23 @@ meta {
 }
 
 put {
-  url: http://localhost:9092/api/v1/building/2
+  url: http://localhost:9092/api/v1/building/4
   body: json
   auth: none
 }
 
 headers {
-  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzU3NTEwNTksImV4cCI6MTczNTgzNzQ1OX0.MP2itHyRxNqXCHRXP8DOU-x-rIlFBonGP4HibN11QoM
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzYwMTA1ODgsImV4cCI6MTczNjA5Njk4OH0.VZxVwbMloFsj2JDQqpn7KBXGA4O-QvP7TxccwTK-vBM
 }
 
 body:json {
   {
     "name": "SkyFall Villa",
-    "address": "Narayanganj, Dhaka-1632"
+    "address": "Narayanganj, Dhaka-1632",
+    "flats": [
+      {
+        "flatNo": "B03"
+      }
+    ]
   }
 }
