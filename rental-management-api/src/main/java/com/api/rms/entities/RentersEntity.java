@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "renters")
 @Getter
@@ -15,8 +17,10 @@ import lombok.Setter;
 public class RentersEntity extends BaseEntity {
     private String nidNo;
     private String deal;
-    private Long buildingId;
-    private String flats;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private Set<BuildingFlatEntity> buildingFlat;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
