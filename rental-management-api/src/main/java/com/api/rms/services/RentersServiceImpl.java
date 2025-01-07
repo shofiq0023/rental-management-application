@@ -90,6 +90,7 @@ public class RentersServiceImpl implements RentersService {
             dto.setFlatNo(entity.getFlatNo());
             dto.setBuildingFlatId(entity.getBuildingFlatId());
             dto.setRented(true);
+            dto.setRenterId(entity.getRenterId());
 
             flatDtoList.add(dto);
         }
@@ -172,7 +173,11 @@ public class RentersServiceImpl implements RentersService {
 
     @Override
     public ResponseEntity<ResponseDto> updateRenter(Long id, RenterReqDto reqDto) {
-        return null;
+        try {
+            return resUtil.createErrorResponse("Under construction!");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
     }
 
     @Override

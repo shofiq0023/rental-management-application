@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RentedFlats {
-    List<FlatDto> flats;
+    private List<FlatDto> flats;
 }

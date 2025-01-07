@@ -13,4 +13,5 @@ public class FlatDto {
     private Long buildingFlatId;
     private String flatNo;
     private boolean isRented;
+    private Long renterId;
 }
