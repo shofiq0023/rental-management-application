@@ -13,4 +13,6 @@ public interface UserAuthenticationService {
     ResponseEntity<ResponseDto> getInactiveUsers();
 
     ResponseEntity<ResponseDto> activeUser(Long userId);
+
+    ResponseEntity<ResponseDto> getAllUsers();
 }

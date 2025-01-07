@@ -19,5 +19,4 @@ public class BuildingFlatEntity extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id", nullable = false)
     private BuildingsEntity building;
-
 }

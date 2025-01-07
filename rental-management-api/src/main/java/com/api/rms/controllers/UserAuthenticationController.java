@@ -42,4 +42,9 @@ public class UserAuthenticationController {
     public ResponseEntity<ResponseDto> activeUser(@PathVariable("userId") Long userId) {
         return service.activeUser(userId);
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<ResponseDto> getAllUsers() {
+        return service.getAllUsers();
+    }
 }

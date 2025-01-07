@@ -129,4 +129,34 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             return resUtil.createErrorResponse();
         }
     }
+
+    @Override
+    public ResponseEntity<ResponseDto> getAllUsers() {
+        try {
+            List<UserEntity> entities = new ArrayList<>(userRepo.findAll());
+
+            if (entities.isEmpty())
+                return resUtil.createSuccessResponse("No Data found!");
+
+            List<UserDto> dtos = new ArrayList<>();
+            for (UserEntity entity : entities) {
+                UserDto dto = new UserDto();
+                dto.setId(entity.getId());
+                dto.setName(entity.getName());
+                dto.setUsername(entity.getUsername());
+                dto.setEmail(entity.getEmail());
+                dto.setPhone(entity.getPhone());
+                dto.setUserType(entity.getUserType() == 1 ? "ROLE_ADMIN" : "ROLE_USER");
+                dto.setAddress(entity.getAddress());
+                dto.setDateOfBirth(entity.getDateOfBirth());
+                dto.setSignupDate(entity.getSignupDate());
+
+                dtos.add(dto);
+            }
+
+            return resUtil.createSuccessResponse(dtos, "Users found");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
+    }
 }

@@ -18,11 +18,11 @@ public class RentersEntity extends BaseEntity {
     private String nidNo;
     private String deal;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Set<BuildingFlatEntity> buildingFlat;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "building_flat_id", nullable = false)
+    private BuildingFlatEntity buildingFlat;
 }

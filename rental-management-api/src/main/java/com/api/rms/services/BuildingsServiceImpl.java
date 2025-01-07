@@ -56,7 +56,7 @@ public class BuildingsServiceImpl implements BuildingsService {
     private void getFlatsData(BuildingsDto buildingsDto) {
         Long buildingId = buildingsDto.getId();
 
-        List<BuildingFlatEntity> buildingFlatEntities = buildingFlatRepo.findByBuildingId(buildingId);
+        List<BuildingFlatEntity> buildingFlatEntities = buildingFlatRepo.findByBuildingIdOrderByFlatNo(buildingId);
 
         if (!buildingFlatEntities.isEmpty()) {
             List<FlatDto> flats = new ArrayList<>();
