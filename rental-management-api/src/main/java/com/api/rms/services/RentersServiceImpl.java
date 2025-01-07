@@ -1,8 +1,6 @@
 package com.api.rms.services;
 
-import com.api.rms.dtos.RenterReqDto;
-import com.api.rms.dtos.RentersDto;
-import com.api.rms.dtos.ResponseDto;
+import com.api.rms.dtos.*;
 import com.api.rms.entities.BuildingFlatEntity;
 import com.api.rms.entities.RentersBuildingEntity;
 import com.api.rms.entities.RentersEntity;
@@ -13,7 +11,6 @@ import com.api.rms.repository.RentersBuildingRepo;
 import com.api.rms.repository.RentersRepo;
 import com.api.rms.repository.UserRepo;
 import com.api.rms.utilities.GenericResponseUtil;
-import com.api.rms.utilities.Utility;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +19,9 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,24 +35,77 @@ public class RentersServiceImpl implements RentersService {
     @Override
     public ResponseEntity<ResponseDto> getAllRenters() {
         try {
-            List<RentersEntity> entities = new ArrayList<>(rentersRepo.findAll());
+            List<RentersQueryResDto> entities = new ArrayList<>(rentersRepo.findAllRenters());
 
-            List<RentersDto> dtos = entities.stream().map(b -> Utility.copyProperties(b, RentersDto.class)).toList();
-
-//            if (dtos.isEmpty())
-//                return resUtil.createSuccessResponse("No Data found!");
-//
-//            setFlatsForBuilding(dtos);
-//
-            return resUtil.createSuccessResponse(dtos, "Renters found");
+            return resUtil.createSuccessResponse(getRentersDtoList(entities), "Renters found");
         } catch (Exception e) {
             return resUtil.createErrorResponse();
         }
     }
 
+    private List<RentersDto> getRentersDtoList(List<RentersQueryResDto> entities) {
+        Map<Long, List<RentersQueryResDto>> groupedData = entities.stream().collect(Collectors.groupingBy(RentersQueryResDto::getUserId));
+
+        return groupedData.values().stream().map(rentersQueryResDtos -> {
+            RentersQueryResDto resDto = rentersQueryResDtos.get(0);
+            RentersDto dto = new RentersDto();
+            dto.setUserId(resDto.getUserId());
+            dto.setNidNo(resDto.getNidNo());
+            dto.setDeal(resDto.getDeal());
+            dto.setRenterName(resDto.getRenterName());
+            dto.setRenterUsername(resDto.getRenterUsername());
+            dto.setRenterEmail(resDto.getRenterEmail());
+            dto.setRenterPhone(resDto.getRenterPhone());
+            dto.setRenterAddress(resDto.getRenterAddress());
+            dto.setRenterDateOfBirth(resDto.getRenterDateOfBirth());
+            dto.setBuildingFlatId(resDto.getBuildingFlatId());
+            dto.setRenterIds(rentersQueryResDtos.stream().map(RentersQueryResDto::getRenterId).collect(Collectors.toList()));
+
+            Map<String, List<RentersQueryResDto>> groupedForBuilding = rentersQueryResDtos.stream().collect(Collectors.groupingBy(RentersQueryResDto::getBuildingName));
+
+            dto.setRentedBuildings(groupedForBuilding.values().stream().map(queryResDtos -> {
+                RentersQueryResDto buildingData = queryResDtos.get(0);
+
+                List<FlatDto> flatDtos = getFlats(queryResDtos);
+                RentedFlats rentedFlats = new RentedFlats();
+                rentedFlats.setFlats(flatDtos);
+
+                RentedBuildingDto rentedBuildingDto = new RentedBuildingDto();
+                rentedBuildingDto.setBuildingName(buildingData.getBuildingName());
+                rentedBuildingDto.setAddress(buildingData.getBuildingAddress());
+                rentedBuildingDto.setRentedFlats(rentedFlats);
+
+                return rentedBuildingDto;
+            }).collect(Collectors.toList()));
+
+            return dto;
+        }).collect(Collectors.toList());
+    }
+
+    public List<FlatDto> getFlats(List<RentersQueryResDto> entities) {
+        List<FlatDto> flatDtoList = new ArrayList<>();
+
+        for (RentersQueryResDto entity : entities) {
+            FlatDto dto = new FlatDto();
+            dto.setFlatNo(entity.getFlatNo());
+            dto.setBuildingFlatId(entity.getBuildingFlatId());
+            dto.setRented(true);
+
+            flatDtoList.add(dto);
+        }
+
+        return flatDtoList;
+    }
+
     @Override
     public ResponseEntity<ResponseDto> getRenter(Long id) {
-        return null;
+        try {
+            List<RentersQueryResDto> entities = new ArrayList<>(rentersRepo.findRenter(id));
+
+            return resUtil.createSuccessResponse(getRentersDtoList(entities), "Renters found");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
     }
 
     @Override
