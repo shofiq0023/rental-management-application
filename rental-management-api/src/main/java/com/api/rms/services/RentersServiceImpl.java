@@ -181,7 +181,16 @@ public class RentersServiceImpl implements RentersService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteRenter(Long id) {
-        return null;
+    public ResponseEntity<ResponseDto> deleteRenter(Long renterId, Long userId) {
+        try {
+            if (renterId == null && userId == null)
+                return resUtil.createErrorResponse("At least one parameter is required");
+
+            rentersRepo.deleteByIdOrUserId(renterId, userId);
+
+            return resUtil.createErrorResponse("Renter deleted successfully!");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse("There were some error while deleting the renter");
+        }
     }
 }

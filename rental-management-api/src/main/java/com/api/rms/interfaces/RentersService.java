@@ -13,5 +13,5 @@ public interface RentersService {
 
     ResponseEntity<ResponseDto> updateRenter(Long id, RenterReqDto reqDto);
 
-    ResponseEntity<ResponseDto> deleteRenter(Long id);
+    ResponseEntity<ResponseDto> deleteRenter(Long renterId, Long userId);
 }

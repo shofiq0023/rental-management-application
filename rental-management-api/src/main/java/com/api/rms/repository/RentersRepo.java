@@ -2,11 +2,14 @@ package com.api.rms.repository;
 
 import com.api.rms.dtos.RentersQueryResDto;
 import com.api.rms.entities.RentersEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+@Transactional
 public interface RentersRepo extends JpaRepository<RentersEntity, Long> {
     @Query(value = "SELECT new com.api.rms.dtos.RentersQueryResDto(" +
             " r.id AS renterId, " +
@@ -52,4 +55,8 @@ public interface RentersRepo extends JpaRepository<RentersEntity, Long> {
             "LEFT JOIN BuildingsEntity b ON bf.building.id = b.id " +
             "WHERE r.id=:renterId")
     List<RentersQueryResDto> findRenter(Long renterId);
+
+    @Modifying
+    @Query("DELETE FROM RentersEntity WHERE id=:renterId OR user.id=:userId")
+    void deleteByIdOrUserId(Long renterId, Long userId);
 }

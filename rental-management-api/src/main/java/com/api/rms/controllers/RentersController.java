@@ -38,8 +38,11 @@ public class RentersController {
     }
 
     // Delete
-    @DeleteMapping("/renter/{renterId}")
-    public ResponseEntity<ResponseDto> deleteRenter(@PathVariable("renterId") Long id) {
-        return rentersService.deleteRenter(id);
+    @DeleteMapping("/renter")
+    public ResponseEntity<ResponseDto> deleteRenter(
+            @RequestParam(value = "renterId", required = false) Long renterId,
+            @RequestParam(value = "userId", required = false) Long userId)
+    {
+        return rentersService.deleteRenter(renterId, userId);
     }
 }
