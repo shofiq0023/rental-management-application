@@ -1,7 +1,10 @@
 package com.api.rms.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,13 +20,18 @@ import java.sql.Date;
 @NoArgsConstructor
 public class RentPaymentEntity extends BaseEntity {
     private double amount;
-    private double utilityBill;
-    private double othersBill;
     @JsonFormat(pattern = "dd-MM-yyyy", timezone = "Asia/Dhaka")
     private Date paymentDate;
-    private String flatNo;
+    private String monthName;
+    private String yearStr;
+    private double utilityBill;
+    private double othersBill;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "renter_id", referencedColumnName = "id")
     private RentersEntity renter;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private UserEntity user;
 }

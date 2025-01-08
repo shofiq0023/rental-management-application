@@ -1,15 +1,25 @@
 meta {
-  name: get all renters
+  name: create rent payment
   type: http
   seq: 1
 }
 
-get {
-  url: http://localhost:9092/api/v1/renters
-  body: none
+post {
+  url: http://localhost:9092/api/v1/payment
+  body: json
   auth: none
 }
 
 headers {
   Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzYzNTM5NjYsImV4cCI6MTczNjQ0MDM2Nn0.XDSS_scuopvLnOQ3t63qXhGxIibfOERLGueSqFmjuGQ
+}
+
+body:json {
+  {
+    "amount": 16500.00,
+    "utilityBill": 1200.0,
+    "othersBill": 455.25,
+    "renterId": 7,
+    "userId": 13
+  }
 }

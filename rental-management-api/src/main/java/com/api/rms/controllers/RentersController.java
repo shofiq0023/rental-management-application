@@ -45,4 +45,10 @@ public class RentersController {
     {
         return rentersService.deleteRenter(renterId, userId);
     }
+
+    // Get All
+    @GetMapping("/renters/simple")
+    public ResponseEntity<ResponseDto> getRentersSimpleVer() {
+        return rentersService.getRentersSimpleVer();
+    }
 }

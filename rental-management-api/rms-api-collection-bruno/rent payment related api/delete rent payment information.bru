@@ -1,11 +1,11 @@
 meta {
-  name: get all renters
+  name: delete rent payment information
   type: http
-  seq: 1
+  seq: 4
 }
 
-get {
-  url: http://localhost:9092/api/v1/renters
+delete {
+  url: http://localhost:9092/api/v1/payment/4
   body: none
   auth: none
 }
