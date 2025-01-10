@@ -1,79 +1,31 @@
 
+import { Layout } from 'antd';
 import React, { useState } from 'react'
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-  } from '@ant-design/icons';
+import SiderComponent from './SiderComponent';
+import HeaderComponent from './HeaderComponent';
+import MainContent from './MainContent';
 
 
-import { Button, Layout, Menu,theme } from 'antd';
+const DashBoardContent = ({ children }) => {
 
-const { Header, Sider, Content } = Layout;
 
-const DashBoardContent = ({children}) => {
-    const [collapsed, setCollapsed] = useState(false);
-    const {
-      token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
-  
+  const [collapsed, setCollapsed] = useState(false);
+  const toggleCollapsed = () => setCollapsed(!collapsed);
+
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed} className='h-screen'>
-        <div className="demo-logo-vertical mt-20" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'User Management',
-            },
-            {
-              key: '2',
-              icon: <VideoCameraOutlined />,
-              label: 'Video Management',
-            },
-            {
-              key: '3',
-              icon: <UploadOutlined />,
-              label: 'File Uploads',
-            },
-          ]}
-        />
-      </Sider>
+      {/* Sider Component */}
+      <SiderComponent collapsed={collapsed} />
 
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          />
-        </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            padding: 24,
-            minHeight: 280,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}
-        >
-          {children}
-        </Content>
+        {/* Header Component */}
+        <HeaderComponent collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
+
+        {/* Main Content */}
+        <MainContent>{children}</MainContent>
       </Layout>
     </Layout>
-  )
-}
+  );
+};
 
 export default DashBoardContent;
