@@ -1,9 +1,18 @@
 import React from 'react';
 import image1 from "../../assets/property.jpg";
 import { Button, Form, Input } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+
+  const navigate = useNavigate();
+
+  const onFinished=(values)=>{
+
+    console.log('Form Values:', values);
+  
+    navigate('/home');
+  }
   return (
     <div 
       className="bg-cover bg-center bg-no-repeat h-screen flex items-center justify-center" 
@@ -15,7 +24,7 @@ const Login = () => {
       {/* Content */}
       <div className="relative z-10 bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        <Form className="space-y-2" layout="vertical">
+        <Form className="space-y-2" layout="vertical" onFinish={onFinished}>
           {/* Email Input */}
           <Form.Item label="Email">
         <Input placeholder="Enter Your Email"  type='email' required={true}/>
@@ -28,7 +37,7 @@ const Login = () => {
 
           {/* Submit Button */}
           <Form.Item>
-        <Button  type="submit" className='w-full bg-primary text-white mb-4'>Submit</Button>
+        <Button htmlType='submit' type='primary'  className='w-full bg-primary text-white mb-4'>Submit</Button>
       </Form.Item>
         </Form>
 
