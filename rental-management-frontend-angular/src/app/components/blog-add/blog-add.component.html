@@ -1,0 +1,28 @@
+<div class="blog-add">
+    <h2 class="mb-3">Create a new Blog</h2>
+
+    <a routerLink="/blogs-list" class="mb-4" mat-flat-button color="primary">
+        <mat-icon>list_alt</mat-icon>
+        See the blogs list
+    </a>
+
+    <form class="form shadow-sm">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" name="blotTitle" id="title" class="form-control" placeholder="Title of the blog.." [(ngModel)]="blogTitle">
+        </div>
+        <div class="form-group">
+            <label for="thumbnail">Thumbnail</label>
+            <input type="text" name="blogThumbnailUrl" id="thumbnail" class="form-control" placeholder="Thumbnail image link.." [(ngModel)]="blogThumbnailUrl">
+        </div>
+        <div class="form-group">
+            <label for="desc">Description</label>
+            <textarea id="desc" name="blogDesc" rows="5" class="form-control" placeholder="Description about the blog.." [(ngModel)]="blogDesc"></textarea>
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" (click)="addBlog()" [disabled]="submitBtnDisabled">
+            <mat-icon>add</mat-icon>
+            Submit
+        </button>
+    </form>
+</div>

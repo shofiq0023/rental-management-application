@@ -41,7 +41,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             Optional<UserEntity> userOpt = userRepo.findByUsernameAndPassword(req.getUsername(), encodedPass);
 
             if (userOpt.isEmpty())
-                return resUtil.createErrorResponse("User not found", "404");
+                return resUtil.createErrorResponse("No user found with this username and password", "404");
 
             UserEntity user = userOpt.get();
             Map<String, Object> claims = new HashMap<>();

@@ -1,0 +1,41 @@
+.thumbnail {
+    width: 82px;
+    overflow: hidden;
+}
+
+// Changing the size of the column
+.mat-column {
+    &-num {
+        flex: 0 0 5%;
+    }
+
+    &-thumbnail {
+        flex: 0 0 8%;
+    }
+
+    &-title {
+        flex: 0 0 40%;
+    }
+
+    &-createdAt {
+        flex: 0 0 10%;
+    }
+
+}
+
+// Changing the border-radius of the table
+$borderRadius: 5px;
+mat {
+    // Changing the default style of the mat-table
+    &-table, &-paginator {
+        background: transparent;
+    }
+    &-header-cell {
+        font-weight: 700;
+    }
+}
+
+.custom-table {
+    border-radius: $borderRadius;
+    background: white;
+}

@@ -1,0 +1,37 @@
+<div class="container-fluid">
+    <h2 class="text-center mt-2">RMS</h2>
+    <hr>
+
+    <mat-list role="list">
+        <mat-list-item role="listitem" class="links" *ngFor="let link of links">
+            <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                {{link.name}}
+            </a>
+        </mat-list-item>
+
+        <p class="mt-4">Property Management</p>
+        <mat-list-item role="listitem" class="links" *ngFor="let link of propertyRoutingLinks">
+            <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                {{link.name}}
+            </a>
+        </mat-list-item>
+
+        <p class="mt-4">Users Management</p>
+        <mat-list-item role="listitem" class="links" *ngFor="let link of userRoutingLinks">
+            <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                {{link.name}}
+            </a>
+        </mat-list-item>
+
+        <p class="mt-4">Renters Management</p>
+        <mat-list-item role="listitem" class="links" *ngFor="let link of rentersLink">
+            <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                {{link.name}}
+            </a>
+        </mat-list-item>
+    </mat-list>
+</div>
