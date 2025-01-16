@@ -43,6 +43,9 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             if (userOpt.isEmpty())
                 return resUtil.createErrorResponse("No user found with this username and password", "404");
 
+            if (userOpt.get().getStatus() == 0)
+                return resUtil.createErrorResponse("Your account is inactive. Please contact the landlord for account activation", "403");
+
             UserEntity user = userOpt.get();
             Map<String, Object> claims = new HashMap<>();
             authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), req.getPassword()));
