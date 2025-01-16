@@ -33,6 +33,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { MatSelectModule } from '@angular/material/select';
 import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { SignupComponent } from './components/signup/signup.component';
     MatSortModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxBootstrapIconsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

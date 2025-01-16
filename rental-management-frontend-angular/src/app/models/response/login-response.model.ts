@@ -1,4 +1,4 @@
-import { LoginModel } from "../data-models/login-response.model";
+import { LoginModel } from "../data-models/response-models/login-response.model";
 
 export interface LoginReponseModel {
     data?: LoginModel;
