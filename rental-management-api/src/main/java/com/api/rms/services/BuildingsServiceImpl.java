@@ -175,6 +175,8 @@ public class BuildingsServiceImpl implements BuildingsService {
 
             if (entityOpt.isEmpty()) return resUtil.createErrorResponse("No building found with the given id");
 
+            buildingFlatRepo.deleteByBuildingId(id);
+
             buildingsRepo.deleteById(id);
 
             return resUtil.createSuccessResponse("Building deleted successfully");
