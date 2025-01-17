@@ -34,6 +34,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { BuildingListComponent } from './components/building-list/building-list.component';
+import { BuildingAddComponent } from './components/building-add/building-add.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { UsersAddComponent } from './components/users-add/users-add.component';
+import { RentersListComponent } from './components/renters-list/renters-list.component';
+import { RentersAddComponent } from './components/renters-add/renters-add.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -46,6 +53,12 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
     ConfirmationDialogComponent,
     BlogEditComponent,
     SignupComponent,
+    BuildingListComponent,
+    BuildingAddComponent,
+    UsersListComponent,
+    UsersAddComponent,
+    RentersListComponent,
+    RentersAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +87,8 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    NgxBootstrapIconsModule
+    NgxBootstrapIconsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

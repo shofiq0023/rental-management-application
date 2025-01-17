@@ -6,4 +6,10 @@ export const api = {
 
     USER_LOGIN_API: "http://localhost:9092/api/v1/authenticate",
     USER_SIGNUP_API: "http://localhost:9092/api/v1/signup",
+
+    BUILDINGS_GET_ALL_API: "http://localhost:9092/api/v1/buildings",
+    BUILDINGS_CREATE_API: "http://localhost:9092/api/v1/building",
+    BUILDINGS_GET_SINGLE_API: "http://localhost:9092/api/v1/building/",
+    BUILDINGS_UPDATE: "http://localhost:9092/api/v1/building/",
+    BUILDINGS_DELETE: "http://localhost:9092/api/v1/building/",
 }

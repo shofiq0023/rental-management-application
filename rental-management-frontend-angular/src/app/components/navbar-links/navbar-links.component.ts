@@ -16,9 +16,14 @@ export class NavbarLinksComponent {
 
   public propertyRoutingLinks: any[] = [
     {
-      name: "Property",
-      routerLink: "property",
-      listIcon: "apartment"
+      name: "Building List",
+      routerLink: "building-list",
+      listIcon: "domain"
+    },
+    {
+      name: "Add new building",
+      routerLink: "add-building",
+      listIcon: "domain_add"
     },
   ];
 
@@ -38,13 +43,13 @@ export class NavbarLinksComponent {
   public rentersLink: any[] = [
     {
       name: "Renter List",
-      routerLink: "users-list",
-      listIcon: "group"
+      routerLink: "renter-list",
+      listIcon: "account_box"
     },
     {
       name: "Add Renter",
-      routerLink: "add-user",
-      listIcon: "person_add"
+      routerLink: "add-renter",
+      listIcon: "group_add"
     }
   ];
 }
