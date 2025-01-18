@@ -13,18 +13,25 @@ import { RentersListComponent } from './components/renters-list/renters-list.com
 import { RentersAddComponent } from './components/renters-add/renters-add.component';
 import { authGuard } from './guards/auth.guard';
 import { loginGuard } from './guards/login.guard';
+import { UsersApproveComponent } from './components/users-approve/users-approve.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "login", component: LoginComponent, canActivate: [loginGuard] },
   { path: "signup", component: SignupComponent, canActivate: [loginGuard] },
+
   { path: "dashboard", component: DashboardComponent, canActivate: [authGuard] },
+
   { path: "blogs-list", component: BlogListComponent, canActivate: [authGuard] },
   { path: "create-blog", component: BlogAddComponent, canActivate: [authGuard] },
+
   { path: "building-list", component: BuildingListComponent, canActivate: [authGuard] },
   { path: "add-building", component: BuildingAddComponent, canActivate: [authGuard] },
+
   { path: "users-list", component: UsersListComponent, canActivate: [authGuard] },
   { path: "add-user", component: UsersAddComponent, canActivate: [authGuard] },
+  { path: "approve-user", component: UsersApproveComponent, canActivate: [authGuard] },
+
   { path: "renter-list", component: RentersListComponent, canActivate: [authGuard] },
   { path: "add-renter", component: RentersAddComponent, canActivate: [authGuard] },
 ];

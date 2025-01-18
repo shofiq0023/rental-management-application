@@ -17,4 +17,6 @@ public interface UserAuthenticationService {
     ResponseEntity<ResponseDto> getAllUsers();
 
     ResponseEntity<ResponseDto> createAdminUser();
+
+    ResponseEntity<ResponseDto> deleteUser(Long userId);
 }

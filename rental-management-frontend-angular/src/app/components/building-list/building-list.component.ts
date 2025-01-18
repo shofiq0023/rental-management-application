@@ -84,8 +84,6 @@ export class BuildingListComponent {
 				this.listData = new MatTableDataSource(buildingsRes);
 				this.listData.sort = this.sort;
 				this.listData.paginator = this.paginator;
-
-				this.toastService.showSuccessToast(apiResponse.message, 1000);
 			},
 			error: (err) => {
 				this.isLoading = false;

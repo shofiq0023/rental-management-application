@@ -20,4 +20,6 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
     @Modifying
     @Query("UPDATE UserEntity SET status = :status WHERE id = :userId")
     void updateUserStatus(int status, Long userId);
+
+    List<UserEntity> findAllByStatus(int status);
 }

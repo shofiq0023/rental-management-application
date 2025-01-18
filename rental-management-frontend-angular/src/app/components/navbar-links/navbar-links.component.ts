@@ -37,6 +37,11 @@ export class NavbarLinksComponent {
       name: "Add user",
       routerLink: "add-user",
       listIcon: "person_add"
+    },
+    {
+      name: "Approve Users",
+      routerLink: "approve-user",
+      listIcon: "manage_accounts"
     }
   ];
 

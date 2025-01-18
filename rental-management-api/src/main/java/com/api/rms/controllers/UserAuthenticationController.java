@@ -48,6 +48,11 @@ public class UserAuthenticationController {
         return service.getAllUsers();
     }
 
+    @DeleteMapping("/user/{userId}")
+    public ResponseEntity<ResponseDto> deleteUser(@PathVariable("userId") Long userId) {
+        return service.deleteUser(userId);
+    }
+
     // For presentation purpose only
     @GetMapping("/create/admin")
     public ResponseEntity<ResponseDto> createAdminUser() {

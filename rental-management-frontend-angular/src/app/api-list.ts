@@ -8,6 +8,9 @@ export const api = {
     USER_SIGNUP_API: "http://localhost:9092/api/v1/signup",
     USER_CREATE_API: "http://localhost:9092/api/v1/create/user",
     USER_LIST_ALL: "http://localhost:9092/api/v1/users",
+    USER_DELETE: "http://localhost:9092/api/v1/user/",
+    USER_INACTIVE: "http://localhost:9092/api/v1/inactive/users",
+    USER_ACTIVATE: "http://localhost:9092/api/v1/active/user/",
 
     BUILDINGS_GET_ALL_API: "http://localhost:9092/api/v1/buildings",
     BUILDINGS_CREATE_API: "http://localhost:9092/api/v1/building",

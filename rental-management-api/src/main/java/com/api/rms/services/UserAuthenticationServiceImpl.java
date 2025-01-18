@@ -2,9 +2,11 @@ package com.api.rms.services;
 
 import com.api.rms.configs.JwtService;
 import com.api.rms.dtos.*;
+import com.api.rms.entities.RentersBuildingEntity;
 import com.api.rms.entities.UserEntity;
 import com.api.rms.interfaces.EncoderDecoder;
 import com.api.rms.interfaces.UserAuthenticationService;
+import com.api.rms.repository.RentersBuildingRepo;
 import com.api.rms.repository.UserRepo;
 import com.api.rms.utilities.GenericResponseUtil;
 import com.api.rms.utilities.Utility;
@@ -30,6 +32,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     private final GenericResponseUtil resUtil;
     private final JwtService jwtService;
     private final PasswordEncoder passEncoder;
+    private final RentersBuildingRepo rentersBuildingRepo;
 
     @Value("${password.salt}")
     private String salt;
@@ -104,7 +107,22 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         try {
             List<UserEntity> userList = new ArrayList<>(userRepo.findByStatusOrderByCreatedAtDesc(0));
-            List<UserDto> userDtos = userList.stream().map(u -> Utility.copyProperties(u, UserDto.class)).toList();
+            List<UserDto> userDtos = new ArrayList<>();
+
+            for (UserEntity entity : userList) {
+                UserDto dto = new UserDto();
+                dto.setId(entity.getId());
+                dto.setName(entity.getName());
+                dto.setUsername(entity.getUsername());
+                dto.setEmail(entity.getEmail());
+                dto.setPhone(entity.getPhone());
+                dto.setUserType(entity.getUserType() == 1 ? "ADMIN" : "RENTER");
+                dto.setAddress(entity.getAddress());
+                dto.setDateOfBirth(entity.getDateOfBirth());
+                dto.setSignupDate(entity.getSignupDate());
+
+                userDtos.add(dto);
+            }
 
             if (userDtos.isEmpty()) {
                 return resUtil.createSuccessResponse("No inactive users found");
@@ -136,7 +154,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     @Override
     public ResponseEntity<ResponseDto> getAllUsers() {
         try {
-            List<UserEntity> entities = new ArrayList<>(userRepo.findAll());
+            List<UserEntity> entities = new ArrayList<>(userRepo.findAllByStatus(1));
 
             if (entities.isEmpty())
                 return resUtil.createSuccessResponse("No Data found!");
@@ -149,7 +167,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
                 dto.setUsername(entity.getUsername());
                 dto.setEmail(entity.getEmail());
                 dto.setPhone(entity.getPhone());
-                dto.setUserType(entity.getUserType() == 1 ? "ROLE_ADMIN" : "ROLE_USER");
+                dto.setUserType(entity.getUserType() == 1 ? "ADMIN" : "RENTER");
                 dto.setAddress(entity.getAddress());
                 dto.setDateOfBirth(entity.getDateOfBirth());
                 dto.setSignupDate(entity.getSignupDate());
@@ -192,6 +210,27 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             return resUtil.createSuccessResponse(savedEntity, "User creation successful");
         } catch (DataIntegrityViolationException e) {
             return resUtil.createDuplicateKeyResponse(e);
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteUser(Long userId) {
+        try {
+            Optional<UserEntity> userOpt = userRepo.findById(userId);
+
+            if (userOpt.isEmpty())
+                return resUtil.createErrorResponse("No user found with the given id!");
+
+            int flatRentedByUser = rentersBuildingRepo.findCountByUserId(userId);
+
+            if (flatRentedByUser > 0)
+                return resUtil.createErrorResponse("This user is assigned as a renter. Please remove this user from renter first!");
+
+            userRepo.deleteById(userId);
+
+            return resUtil.createSuccessResponse(true, "Users deleted successfully!");
         } catch (Exception e) {
             return resUtil.createErrorResponse();
         }

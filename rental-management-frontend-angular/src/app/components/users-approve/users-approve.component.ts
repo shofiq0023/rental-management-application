@@ -3,21 +3,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { BuildingsResponseModel } from 'src/app/models/data-models/response-models/buildings.response.model';
+import { UserModel } from 'src/app/models/data-models/user.model';
 import { ApiResponseModel } from 'src/app/models/response/api-response.model';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { BuildingService } from 'src/app/services/building.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { UserModel } from 'src/app/models/data-models/user.model';
 
 @Component({
-	selector: 'app-users-list',
-	templateUrl: './users-list.component.html',
-	styleUrls: ['./users-list.component.scss']
+	selector: 'app-users-approve',
+	templateUrl: './users-approve.component.html',
+	styleUrls: ['./users-approve.component.scss']
 })
-export class UsersListComponent {
-	constructor(private buildingService: BuildingService, private toastService: ToastService, public dialog: MatDialog, private userAuthenticationService: AuthenticationService) { }
+export class UsersApproveComponent {
+constructor(private buildingService: BuildingService, private toastService: ToastService, public dialog: MatDialog, private userAuthenticationService: AuthenticationService) { }
 
 	public ngOnInit(): void {
 		this.getUsers();
@@ -35,8 +34,40 @@ export class UsersListComponent {
 	public searchKey!: string;
 	public isLoading: boolean = true;
 
-	public openEditDialog(data: any): void {
+	public openApproveUserDialog(userId: any): void {
+		const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+			data: {
+				message: 'Are you sure want to approve this user?',
+				buttonText: {
+					ok: 'Yes',
+					cancel: 'No'
+				}
+			}
+		});
 
+		dialogRef.afterClosed().subscribe({
+			next: (confirmed: boolean) => {
+				if (confirmed) {
+					this.isLoading = true;
+
+					this.userAuthenticationService.activateUser(userId).subscribe({
+						next: (res) => {
+							this.isLoading = false;
+							let apiResponse: ApiResponseModel = res;
+
+							this.toastService.showSuccessToast(apiResponse.message);
+							this.getUsers(); 
+						},
+						error: (err) => {
+							this.isLoading = false;
+							let responseData: ApiResponseModel = err.error;
+
+							this.toastService.showFailToast(responseData.message);
+						}
+					});
+				}
+			},
+		});
 	}
 
 	public openDialog(userId: number): void {
@@ -99,7 +130,7 @@ export class UsersListComponent {
 	}
 
 	public getUsers(): void {
-		this.userAuthenticationService.getAllUser().subscribe({
+		this.userAuthenticationService.getAllInactiveUsers().subscribe({
 			next: (res) => {
 				this.isLoading = false;
 				let apiResponse: ApiResponseModel = res;

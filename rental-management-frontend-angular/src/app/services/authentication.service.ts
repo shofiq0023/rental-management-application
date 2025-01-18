@@ -9,11 +9,12 @@ import { UserModel } from '../models/data-models/user.model';
 import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class AuthenticationService {
-  
-  private TOKEN: string = 'token';
+
+
+	private TOKEN: string = 'token';
 
 	constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
@@ -25,22 +26,33 @@ export class AuthenticationService {
 		return httpHeaders;
 	}
 
-  // Login API call
-  public userAuth(loginRequestObject: LoginReqModel): Observable<LoginReponseModel> {
-    return this.http.post(api.USER_LOGIN_API, loginRequestObject);
-  }
+	// Login API call
+	public userAuth(loginRequestObject: LoginReqModel): Observable<LoginReponseModel> {
+		return this.http.post(api.USER_LOGIN_API, loginRequestObject);
+	}
 
-  // User signup API call
-  public userSignup(userSignupRequest: UserSignupRequestModel): Observable<UserModel> {
-    return this.http.post(api.USER_SIGNUP_API, userSignupRequest);
-  }
+	// User signup API call
+	public userSignup(userSignupRequest: UserSignupRequestModel): Observable<UserModel> {
+		return this.http.post(api.USER_SIGNUP_API, userSignupRequest);
+	}
 
-  public userCreate(userSignupRequest: UserSignupRequestModel): Observable<UserModel> {
-    return this.http.post(api.USER_CREATE_API, userSignupRequest, {headers: this.getJwtHeader()});
-  }
+	public userCreate(userSignupRequest: UserSignupRequestModel): Observable<UserModel> {
+		return this.http.post(api.USER_CREATE_API, userSignupRequest, { headers: this.getJwtHeader() });
+	}
 
-  public getAllUser(): Observable<any> {
-    return this.http.get(api.USER_LIST_ALL, {headers: this.getJwtHeader()});
-  }
+	public getAllUser(): Observable<any> {
+		return this.http.get(api.USER_LIST_ALL, { headers: this.getJwtHeader() });
+	}
 
+	public deleteUser(userId: number): Observable<any> {
+		return this.http.delete(api.USER_DELETE + userId, { headers: this.getJwtHeader() });
+	}
+
+	public getAllInactiveUsers(): Observable<any> {
+		return this.http.get(api.USER_INACTIVE, { headers: this.getJwtHeader() });
+	}
+
+	public activateUser(userId: number): Observable<any> {
+		return this.http.post(api.USER_ACTIVATE + userId, userId, { headers: this.getJwtHeader() });
+	}
 }
