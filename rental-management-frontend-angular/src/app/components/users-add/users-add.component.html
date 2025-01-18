@@ -1,1 +1,91 @@
-<p>users-add works!</p>
+<div class="users-add">
+    <h2 class="mb-3">Add a new user</h2>
+
+    <a routerLink="/users-list" class="mb-4" mat-flat-button color="primary">
+        <mat-icon>list_alt</mat-icon>
+        See the users list
+    </a>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <form class="form shadow-sm">
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="User's full name..." [(ngModel)]="name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Pick a unique username..." [(ngModel)]="username" required>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="User's email address..." [(ngModel)]="email" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="User's phone number..." [(ngModel)]="phone">
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" 
+                class="form-control" placeholder="Enter your password..." 
+                [(ngModel)]="password" required>
+                <span *ngIf="!isPasswordMatching" class="text-danger">Passwords do not match</span>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="phone">Confirm Password</label>
+                <input type="password" name="password" id="confirm_password" 
+                class="form-control" placeholder="Enter your password again..." 
+                (keyup)="checkPassword()"
+                [(ngModel)]="confirmPassword" required>
+                <span *ngIf="!isPasswordMatching" class="text-danger">Passwords do not match</span>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="user_type">User type</label>
+                <select name="user_type" id="user_type" class="form-control" [(ngModel)]="userType">
+                    <option value="1">Admin</option>
+                    <option value="2">Renter</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="Enter your address..." [(ngModel)]="address">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateOfBirth">Date of Birth</label>
+                <div class="input-group">
+                    <input
+                        class="form-control"
+                        placeholder="yyyy-mm-dd"
+                        id="dateOfBirth"
+                        name="dateOfBirth"
+                        [(ngModel)]="dateOfBirth"
+                        ngbDatepicker
+                        #d="ngbDatepicker"
+                        (click)="d.toggle()"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" (click)="createAccount()" [disabled]="isLoading || !isPasswordMatching">
+            <mat-icon>add</mat-icon>
+            Submit
+        </button>
+    </form>
+</div>

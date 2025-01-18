@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { FaSymbol, IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { BlogModel } from 'src/app/models/data-models/blog.model';
@@ -15,7 +16,7 @@ import { ToastService } from 'src/app/services/toast.service';
 	styleUrls: ['./building-add.component.scss']
 })
 export class BuildingAddComponent {
-	public constructor(private buildingService: BuildingService, private toastService: ToastService) { }
+	public constructor(private buildingService: BuildingService, private toastService: ToastService, private router: Router) { }
 	public faMinus: IconDefinition = faMinus;
 	public faAdd: IconDefinition = faPlus;
 
@@ -53,6 +54,7 @@ export class BuildingAddComponent {
 				let apiResponse: ApiResponseModel = res;
 
 				this.toastService.showSuccessToast(apiResponse.message);
+				this.router.navigate(['/building-list']);
 			},
 			error: (err) => {
 				this.isLoading = false;

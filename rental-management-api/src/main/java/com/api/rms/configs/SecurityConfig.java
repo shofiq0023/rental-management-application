@@ -19,7 +19,7 @@ public class SecurityConfig {
     private final SecurityFilter securityFilter;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
-    private final String[] whiteListApi = {"/api/v1/authenticate", "/api/v1/signup"};
+    private final String[] whiteListApi = {"/api/v1/authenticate", "/api/v1/signup", "/h2-console/**", "/api/v1/create/admin"};
     private final String[] adminApiList = {"/api/v1/create/user", "/api/v1/inactive/users", "/api/v1/active/user/*"};
 
     @Bean

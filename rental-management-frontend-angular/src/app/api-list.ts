@@ -6,6 +6,8 @@ export const api = {
 
     USER_LOGIN_API: "http://localhost:9092/api/v1/authenticate",
     USER_SIGNUP_API: "http://localhost:9092/api/v1/signup",
+    USER_CREATE_API: "http://localhost:9092/api/v1/create/user",
+    USER_LIST_ALL: "http://localhost:9092/api/v1/users",
 
     BUILDINGS_GET_ALL_API: "http://localhost:9092/api/v1/buildings",
     BUILDINGS_CREATE_API: "http://localhost:9092/api/v1/building",

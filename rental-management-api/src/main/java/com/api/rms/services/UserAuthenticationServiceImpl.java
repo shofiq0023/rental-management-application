@@ -93,7 +93,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
             return resUtil.createSuccessResponse(savedEntity, "User signup successful");
         } catch (DataIntegrityViolationException e) {
-            return resUtil.createDuplicateKeyResponse(e);
+            return resUtil.createErrorResponse("Duplicate data is not allowed");
         } catch (Exception e) {
             return resUtil.createErrorResponse();
         }
@@ -158,6 +158,40 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             }
 
             return resUtil.createSuccessResponse(dtos, "Users found");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> createAdminUser() {
+        try {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setName("System User");
+            userEntity.setUsername("sysadmin");
+            userEntity.setEmail("system.user@gmail.com");
+            userEntity.setPhone("017181818686");
+            userEntity.setAddress("System User Address");
+            userEntity.setDateOfBirth(new Date(System.currentTimeMillis()));
+
+            // Encoding the origin password
+            // This will help in retrieving the user's password later
+            String encodedPass = encoderDecoder.encodeString("123456", salt);
+            userEntity.setPassword(encodedPass);
+            userEntity.setPasswordEncoded(passEncoder.encode("123456"));
+
+            // Default user is "Renter"
+            userEntity.setUserType(1);
+
+            userEntity.setSignupDate(new Date(System.currentTimeMillis()));
+            userEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+            userEntity.setStatus(1);
+
+            UserEntity savedEntity = userRepo.save(userEntity);
+
+            return resUtil.createSuccessResponse(savedEntity, "User creation successful");
+        } catch (DataIntegrityViolationException e) {
+            return resUtil.createDuplicateKeyResponse(e);
         } catch (Exception e) {
             return resUtil.createErrorResponse();
         }

@@ -6,4 +6,5 @@ export interface UserSignupRequestModel {
     password: string;
     address: string;
     dateOfBirth: string;
+    userType?: number;
 }

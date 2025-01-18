@@ -47,4 +47,10 @@ public class UserAuthenticationController {
     public ResponseEntity<ResponseDto> getAllUsers() {
         return service.getAllUsers();
     }
+
+    // For presentation purpose only
+    @GetMapping("/create/admin")
+    public ResponseEntity<ResponseDto> createAdminUser() {
+        return service.createAdminUser();
+    }
 }
