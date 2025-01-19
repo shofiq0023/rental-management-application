@@ -1,14 +1,9 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { NgbDate, NgbInputDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { FlatsModel } from 'src/app/models/data-models/flats.model';
 import { UserSignupRequestModel } from 'src/app/models/data-models/request-models/user-signup.request.model';
 import { ApiResponseModel } from 'src/app/models/response/api-response.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { BuildingService } from 'src/app/services/building.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -22,8 +17,7 @@ export class UsersAddComponent {
 		private config: NgbInputDatepickerConfig,
 		private userAuthenticationService: AuthenticationService,
 		private toastService: ToastService,
-		private router: Router,
-		private localStorageService: LocalStorageService) {
+		private router: Router) {
 		this.config.autoClose = true;
 		this.config.placement = ['top-start', 'top-end'];
 	}

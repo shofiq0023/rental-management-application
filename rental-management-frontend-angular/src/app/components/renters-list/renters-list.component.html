@@ -1,1 +1,91 @@
-<p>renters-list works!</p>
+<div class="renters-list">
+    <h2 class="mb-3">List of renters</h2>
+
+    <a routerLink="/add-renter" class="mb-4 me-2" mat-flat-button color="primary">
+        <mat-icon>add</mat-icon>
+        Add a new renter
+    </a>
+
+    <div class="mat-elevation-z2 custom-table">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <mat-table [dataSource]="listData" matSort>
+
+            <ng-container matColumnDef="num">
+                <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+                <mat-cell *matCellDef="let data; let i = index">
+                    {{i + 1}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.name}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.username}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.email}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.phone}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="userType">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>User Type</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.userType}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.address}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="signupDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Signup Date</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.signupDate}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <button mat-icon-button class="text-danger" (click)="openDialog(data.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data</td>
+            </tr>
+            
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+
+</div>

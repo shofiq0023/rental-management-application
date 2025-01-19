@@ -17,7 +17,7 @@ import { UserModel } from 'src/app/models/data-models/user.model';
 	styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent {
-	constructor(private buildingService: BuildingService, private toastService: ToastService, public dialog: MatDialog, private userAuthenticationService: AuthenticationService) { }
+	constructor(private toastService: ToastService, public dialog: MatDialog, private userAuthenticationService: AuthenticationService) { }
 
 	public ngOnInit(): void {
 		this.getUsers();
@@ -73,28 +73,6 @@ export class UsersListComponent {
 					});
 				}
 			},
-		});
-	}
-
-	public getBuildings(): void {
-		this.buildingService.getBuildings().subscribe({
-			next: (res) => {
-				this.isLoading = false;
-				let apiResponse: ApiResponseModel = res;
-				let buildingsRes: any = apiResponse.data;
-
-				this.listData = new MatTableDataSource(buildingsRes);
-				this.listData.sort = this.sort;
-				this.listData.paginator = this.paginator;
-
-				this.toastService.showSuccessToast(apiResponse.message, 1000);
-			},
-			error: (err) => {
-				this.isLoading = false;
-				let responseData: ApiResponseModel = err.error;
-
-				this.toastService.showFailToast(responseData.message);
-			}
 		});
 	}
 
