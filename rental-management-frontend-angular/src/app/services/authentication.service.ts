@@ -12,8 +12,6 @@ import { LocalStorageService } from './local-storage.service';
 	providedIn: 'root'
 })
 export class AuthenticationService {
-
-
 	private TOKEN: string = 'token';
 
 	constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }

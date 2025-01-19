@@ -8,6 +8,8 @@ import { ApiResponseModel } from 'src/app/models/response/api-response.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { RentersService } from 'src/app/services/renters.service';
+import { RentersResponseModel } from 'src/app/models/data-models/response-models/renters.response.model';
 
 @Component({
 	selector: 'app-renters-list',
@@ -15,14 +17,14 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 	styleUrls: ['./renters-list.component.scss']
 })
 export class RentersListComponent {
-constructor(private toastService: ToastService, public dialog: MatDialog, private userAuthenticationService: AuthenticationService) { }
+	constructor(private toastService: ToastService, public dialog: MatDialog, private userAuthenticationService: AuthenticationService, private rentersService: RentersService) { }
 
 	public ngOnInit(): void {
-		this.getUsers();
+		this.getRenters();
 	}
 
-	public displayedColumns: string[] = ['num', 'name', 'username', 'email', 'phone', 'userType', 'address', 'signupDate', 'actions'];
-	public listData!: MatTableDataSource<UserModel>;
+	public displayedColumns: string[] = ['num', 'renterName', 'buildingName', 'flatNo', 'renterPhone', 'renterEmail', 'renterAddress', 'nidNo', 'actions'];
+	public listData!: MatTableDataSource<RentersResponseModel>;
 
 	@ViewChild(MatSort)
 	private sort!: MatSort;
@@ -37,7 +39,7 @@ constructor(private toastService: ToastService, public dialog: MatDialog, privat
 
 	}
 
-	public openDialog(userId: number): void {
+	public openDialog(renterId: number, buildingFlatId: number): void {
 		// Opens the dialog box for confirmation
 		const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
 			data: {
@@ -54,13 +56,13 @@ constructor(private toastService: ToastService, public dialog: MatDialog, privat
 				if (confirmed) {
 					this.isLoading = true;
 
-					this.userAuthenticationService.deleteUser(userId).subscribe({
+					this.rentersService.deleteRenter(renterId, buildingFlatId).subscribe({
 						next: (res) => {
 							this.isLoading = false;
 							let apiResponse: ApiResponseModel = res;
 
 							this.toastService.showSuccessToast(apiResponse.message);
-							this.getUsers(); 
+							this.getRenters();
 						},
 						error: (err) => {
 							this.isLoading = false;
@@ -74,8 +76,8 @@ constructor(private toastService: ToastService, public dialog: MatDialog, privat
 		});
 	}
 
-	public getUsers(): void {
-		this.userAuthenticationService.getAllUser().subscribe({
+	public getRenters(): void {
+		this.rentersService.getAllRenters().subscribe({
 			next: (res) => {
 				this.isLoading = false;
 				let apiResponse: ApiResponseModel = res;

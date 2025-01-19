@@ -42,6 +42,7 @@ import { RentersListComponent } from './components/renters-list/renters-list.com
 import { RentersAddComponent } from './components/renters-add/renters-add.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UsersApproveComponent } from './components/users-approve/users-approve.component';
+import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { UsersApproveComponent } from './components/users-approve/users-approve.
     RentersListComponent,
     RentersAddComponent,
     UsersApproveComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     BrowserModule,

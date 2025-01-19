@@ -57,6 +57,6 @@ public interface RentersRepo extends JpaRepository<RentersEntity, Long> {
     List<RentersQueryResDto> findRenter(Long renterId);
 
     @Modifying
-    @Query("DELETE FROM RentersEntity WHERE id=:renterId OR user.id=:userId")
-    void deleteByIdOrUserId(Long renterId, Long userId);
+    @Query("DELETE FROM RentersEntity WHERE id=:renterId")
+    void deleteById(Long renterId);
 }

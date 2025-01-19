@@ -83,11 +83,11 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data</td>
-            </tr>
-            
         </mat-table>
+
+        <div class="text-center pt-2" *ngIf="!isLoading && listData.data.length === 0">
+            <p>No users found</p>
+        </div>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
     </div>

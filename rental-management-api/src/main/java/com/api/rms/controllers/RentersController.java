@@ -40,10 +40,10 @@ public class RentersController {
     // Delete
     @DeleteMapping("/renter")
     public ResponseEntity<ResponseDto> deleteRenter(
-            @RequestParam(value = "renterId", required = false) Long renterId,
-            @RequestParam(value = "userId", required = false) Long userId)
+            @RequestParam(value = "renterId") Long renterId,
+            @RequestParam(value = "buildingFlatId") Long buildingFlatId)
     {
-        return rentersService.deleteRenter(renterId, userId);
+        return rentersService.deleteRenter(renterId, buildingFlatId);
     }
 
     // Get All

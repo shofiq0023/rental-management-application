@@ -14,6 +14,7 @@ import { RentersAddComponent } from './components/renters-add/renters-add.compon
 import { authGuard } from './guards/auth.guard';
 import { loginGuard } from './guards/login.guard';
 import { UsersApproveComponent } from './components/users-approve/users-approve.component';
+import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
 
 const routes: Routes = [
 	{ path: "", redirectTo: "login", pathMatch: "full" },
@@ -21,6 +22,7 @@ const routes: Routes = [
 	{ path: "signup", component: SignupComponent, canActivate: [loginGuard] },
 
 	{ path: "dashboard", component: DashboardComponent, canActivate: [authGuard] },
+	{ path: "account-settings", component: AccountSettingsComponent, canActivate: [authGuard] },
 
 	{ path: "blogs-list", component: BlogListComponent, canActivate: [authGuard] },
 	{ path: "create-blog", component: BlogAddComponent, canActivate: [authGuard] },

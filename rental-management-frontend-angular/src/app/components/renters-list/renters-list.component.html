@@ -18,59 +18,59 @@
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="name">
+            <ng-container matColumnDef="renterName">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    {{data.name}}
+                    {{data.renterName}}
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="username">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+            <ng-container matColumnDef="buildingName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Building</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    {{data.username}}
+                    {{data.buildingName}}
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="email">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <ng-container matColumnDef="flatNo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Flat No.</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    {{data.email}}
+                    {{data.flatNo}}
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="phone">
+            <ng-container matColumnDef="renterPhone">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    {{data.phone}}
+                    {{data.renterPhone}}
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="userType">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>User Type</mat-header-cell>
+            <ng-container matColumnDef="renterEmail">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    {{data.userType}}
+                    {{data.renterEmail}}
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="address">
+            <ng-container matColumnDef="renterAddress">
                 <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    {{data.address}}
+                    {{data.renterAddress}}
                 </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="signupDate">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>Signup Date</mat-header-cell>
+            <ng-container matColumnDef="nidNo">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>NID</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    {{data.signupDate}}
+                    {{data.nidNo}}
                 </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="actions">
                 <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let data">
-                    <button mat-icon-button class="text-danger" (click)="openDialog(data.id)">
+                    <button mat-icon-button class="text-danger" (click)="openDialog(data.renterId, data.buildingFlatId)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-cell>
@@ -79,11 +79,11 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No data</td>
-            </tr>
-            
         </mat-table>
+
+        <div class="text-center pt-2" *ngIf="!isLoading && listData.data.length === 0">
+            <p>No renters found.</p>
+        </div>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
     </div>

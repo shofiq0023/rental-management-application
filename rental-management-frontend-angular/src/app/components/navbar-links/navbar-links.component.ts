@@ -12,6 +12,11 @@ export class NavbarLinksComponent {
       routerLink: "dashboard",
       listIcon: "dashboard"
     },
+    {
+      name: "Account Settings",
+      routerLink: "account-settings",
+      listIcon: "settings"
+    },
   ]
 
   public propertyRoutingLinks: any[] = [

@@ -4,5 +4,5 @@ export interface BuildingsResponseModel {
     id?: number;
     name?: string;
     address?: string;
-    flats?: [FlatsResponseModel];
+    flats?: FlatsResponseModel[];
 }

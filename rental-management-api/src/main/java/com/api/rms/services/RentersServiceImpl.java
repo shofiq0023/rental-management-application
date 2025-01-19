@@ -6,16 +6,14 @@ import com.api.rms.entities.RentersBuildingEntity;
 import com.api.rms.entities.RentersEntity;
 import com.api.rms.entities.UserEntity;
 import com.api.rms.interfaces.RentersService;
-import com.api.rms.repository.BuildingFlatRepo;
-import com.api.rms.repository.RentersBuildingRepo;
-import com.api.rms.repository.RentersRepo;
-import com.api.rms.repository.UserRepo;
+import com.api.rms.repository.*;
 import com.api.rms.utilities.GenericResponseUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,7 @@ public class RentersServiceImpl implements RentersService {
     private final UserRepo userRepo;
     private final BuildingFlatRepo buildingFlatRepo;
     private final RentersBuildingRepo rentersBuildingRepo;
+    private final RentPaymentRepo rentPaymentRepo;
 
     @Override
     public ResponseEntity<ResponseDto> getAllRenters() {
@@ -181,17 +180,32 @@ public class RentersServiceImpl implements RentersService {
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteRenter(Long renterId, Long userId) {
+    public ResponseEntity<ResponseDto> deleteRenter(Long renterId, Long buildingFlatId) {
         try {
-            if (renterId == null && userId == null)
-                return resUtil.createErrorResponse("At least one parameter is required");
+            Optional<RentersEntity> rentersEntityOpt = rentersRepo.findById(renterId);
+            if (rentersEntityOpt.isEmpty())
+                return resUtil.createErrorResponse("No renter found with the given id!");
 
-            rentersRepo.deleteByIdOrUserId(renterId, userId);
+            rentPaymentRepo.deleteByRenterId(renterId);
+
+            rentersRepo.deleteById(renterId);
+
+            updateFlatStatus(rentersEntityOpt.get().getBuildingFlat());
+            updateRentersBuilding(buildingFlatId);
 
             return resUtil.createSuccessResponse("Renter deleted successfully!");
         } catch (Exception e) {
             return resUtil.createErrorResponse("There were some error while deleting the renter");
         }
+    }
+
+    private void updateRentersBuilding(Long buildingFlatId) {
+        rentersBuildingRepo.deleteByBuildingFlatId(buildingFlatId);
+    }
+
+    private void updateFlatStatus(BuildingFlatEntity buildingFlat) {
+        buildingFlat.setRented(false);
+        buildingFlatRepo.save(buildingFlat);
     }
 
     @Override
