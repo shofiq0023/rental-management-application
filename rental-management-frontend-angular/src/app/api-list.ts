@@ -12,6 +12,7 @@ export const api = {
     USER_INACTIVE: "http://localhost:9092/api/v1/inactive/users",
     USER_ACTIVATE: "http://localhost:9092/api/v1/active/user/",
     USER_UPDATE: "http://localhost:9092/api/v1/user/",
+    USER_PASSWORD_UPDATE: "http://localhost:9092/api/v1/user/password/",
     USER_GET_SINGLE: "http://localhost:9092/api/v1/user/by/token",
 
     BUILDINGS_GET_ALL_API: "http://localhost:9092/api/v1/buildings",

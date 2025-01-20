@@ -62,4 +62,8 @@ export class AuthenticationService {
 		return this.http.put(api.USER_UPDATE + userId, userUpdateReqModel, { headers: this.getJwtHeader() });
 	}
 
+	public updateUserPassword(passwordUpdateReqModel: any, userId: number) {
+		return this.http.put(api.USER_PASSWORD_UPDATE + userId, passwordUpdateReqModel, { headers: this.getJwtHeader() });
+	}
+
 }

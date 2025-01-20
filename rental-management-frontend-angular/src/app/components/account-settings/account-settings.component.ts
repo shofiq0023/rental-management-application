@@ -16,13 +16,7 @@ import { ToastService } from 'src/app/services/toast.service';
 	styleUrls: ['./account-settings.component.scss']
 })
 export class AccountSettingsComponent {
-	constructor(
-		private config: NgbInputDatepickerConfig,
-		private userAuthenticationService: AuthenticationService,
-		private toastService: ToastService,
-		private router: Router) {
-		this.config.autoClose = true;
-		this.config.placement = ['top-start', 'top-end'];
+	constructor(private userAuthenticationService: AuthenticationService, private toastService: ToastService) {
 		this.userId = 0;
 	}
 
@@ -31,7 +25,6 @@ export class AccountSettingsComponent {
 	}
 
 	public isLoading: boolean = false;
-
 	public isPasswordMatching: boolean = true;
 
 	private userId: number;
@@ -39,8 +32,11 @@ export class AccountSettingsComponent {
 	public username: string = '';
 	public email: string = '';
 	public phone: string = '';
-	public password: string = '';
-	public confirmPassword: string = '';
+
+	public oldPassword: string = '';
+	public newPassword: string = '';
+	public confirmNewPassword: string = '';
+
 	public address: string = '';
 	public userType: number = 1;
 
@@ -79,7 +75,7 @@ export class AccountSettingsComponent {
 	}
 
 	public checkPassword(): void {
-		if (this.password != this.confirmPassword) {
+		if (this.newPassword != this.confirmNewPassword) {
 			this.isPasswordMatching = false;
 		} else {
 			this.isPasswordMatching = true;
@@ -95,11 +91,10 @@ export class AccountSettingsComponent {
 		}
 
 		this.userAuthenticationService.updateUserInfo(userUpdateReqModel, this.userId).subscribe({
-			next: (res) => {
+			next: () => {
 				this.isLoading = false;
 
 				this.toastService.showSuccessToast("User updated successfully");
-				// this.router.navigate(['/users-list']);
 			},
 			error: (err) => {
 				this.isLoading = false;
@@ -114,25 +109,20 @@ export class AccountSettingsComponent {
 		});
 	}
 
-	public createAccount(): void {
+	public updatePassword(): void {
 		this.isLoading = true;
 
-		let userSignupReq: UserSignupRequestModel = {
-			name: this.name,
-			username: this.username,
-			email: this.email,
-			phone: this.phone,
-			password: this.password,
-			address: this.address,
-			userType: this.userType
+		let passwordUpdateReqModel = {
+			oldPassword: this.oldPassword,
+			newPassword: this.newPassword,
 		}
 
-		this.userAuthenticationService.userCreate(userSignupReq).subscribe({
-			next: (res) => {
+		this.userAuthenticationService.updateUserPassword(passwordUpdateReqModel, this.userId).subscribe({
+			next: () => {
 				this.isLoading = false;
 
-				this.toastService.showSuccessToast("User created sucecssfully");
-				this.router.navigate(['/users-list']);
+				this.toastService.showSuccessToast("Password updated successfully");
+				this.resetPasswordForm();
 			},
 			error: (err) => {
 				this.isLoading = false;
@@ -147,16 +137,9 @@ export class AccountSettingsComponent {
 		});
 	}
 
-	private getDateString(date: NgbDate): string {
-		// Get date string as '28/02/1999'
-		return `${this.getFullNumber(date.day)}-${this.getFullNumber(date.month)}-${this.getFullNumber(date.year)}`;
-	}
-
-	private getFullNumber(date: number): string {
-		if (date < 10) {
-			return `0${date}`;
-		} else {
-			return date.toString();
-		}
+	private resetPasswordForm(): void {
+		this.oldPassword = '';
+		this.newPassword = '';
+		this.confirmNewPassword = '';
 	}
 }

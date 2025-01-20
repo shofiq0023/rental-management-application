@@ -22,4 +22,7 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
     void updateUserStatus(int status, Long userId);
 
     List<UserEntity> findAllByStatus(int status);
+
+    Optional<UserEntity> findByIdAndPassword(Long userId, String encodedOldPassword);
+
 }

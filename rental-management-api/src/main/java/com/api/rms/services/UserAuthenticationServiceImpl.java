@@ -2,7 +2,6 @@ package com.api.rms.services;
 
 import com.api.rms.configs.JwtService;
 import com.api.rms.dtos.*;
-import com.api.rms.entities.RentersBuildingEntity;
 import com.api.rms.entities.UserEntity;
 import com.api.rms.interfaces.EncoderDecoder;
 import com.api.rms.interfaces.UserAuthenticationService;
@@ -31,7 +30,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     private final AuthenticationManager authManager;
     private final GenericResponseUtil resUtil;
     private final JwtService jwtService;
-    private final PasswordEncoder passEncoder;
+    private final PasswordEncoder springSecurityPasswordEncoder;
     private final RentersBuildingRepo rentersBuildingRepo;
 
     @Value("${password.salt}")
@@ -83,7 +82,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             // This will help in retrieving the user's password later
             String encodedPass = encoderDecoder.encodeString(reqDto.getPassword(), salt);
             userEntity.setPassword(encodedPass);
-            userEntity.setPasswordEncoded(passEncoder.encode(reqDto.getPassword()));
+            userEntity.setPasswordEncoded(springSecurityPasswordEncoder.encode(reqDto.getPassword()));
 
             // Default user is "Renter"
             userEntity.setUserType(userType);
@@ -196,7 +195,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             // This will help in retrieving the user's password later
             String encodedPass = encoderDecoder.encodeString("123456", salt);
             userEntity.setPassword(encodedPass);
-            userEntity.setPasswordEncoded(passEncoder.encode("123456"));
+            userEntity.setPasswordEncoded(springSecurityPasswordEncoder.encode("123456"));
 
             // Default user is "Renter"
             userEntity.setUserType(1);
@@ -274,6 +273,25 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
     @Override
     public ResponseEntity<ResponseDto> updateUserPassword(PasswordChangeReqDto reqDto, Long userId) {
-        return null;
+        try {
+            String oldPassword = reqDto.getOldPassword();
+            String newPassword = reqDto.getNewPassword();
+            String encodedOldPassword = encoderDecoder.encodeString(oldPassword, salt);
+
+            Optional<UserEntity> userOpt = userRepo.findByIdAndPassword(userId, encodedOldPassword);
+            if (userOpt.isEmpty())
+                return resUtil.createErrorResponse("Invalid old password!");
+
+            UserEntity existingEntity = userOpt.get();
+            existingEntity.setPassword(encoderDecoder.encodeString(newPassword, salt));
+            existingEntity.setPasswordEncoded(springSecurityPasswordEncoder.encode(newPassword));
+            existingEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
+            UserEntity updatedEntity = userRepo.save(existingEntity);
+
+            return resUtil.createSuccessResponse(updatedEntity, "Password updated successfully!");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
     }
 }
