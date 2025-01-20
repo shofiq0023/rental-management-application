@@ -53,4 +53,9 @@ export class AuthenticationService {
 	public activateUser(userId: number): Observable<any> {
 		return this.http.post(api.USER_ACTIVATE + userId, userId, { headers: this.getJwtHeader() });
 	}
+
+	public getSingleUserInfo(): Observable<any> {
+		return this.http.get(api.USER_GET_SINGLE, { headers: this.getJwtHeader() });
+	}
+
 }

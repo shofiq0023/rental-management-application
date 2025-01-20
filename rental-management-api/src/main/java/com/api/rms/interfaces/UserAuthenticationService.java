@@ -1,5 +1,6 @@
 package com.api.rms.interfaces;
 
+import com.api.rms.dtos.PasswordChangeReqDto;
 import com.api.rms.dtos.ResponseDto;
 import com.api.rms.dtos.UserAuthReq;
 import com.api.rms.dtos.UserSignupReqDto;
@@ -19,4 +20,10 @@ public interface UserAuthenticationService {
     ResponseEntity<ResponseDto> createAdminUser();
 
     ResponseEntity<ResponseDto> deleteUser(Long userId);
+
+    ResponseEntity<ResponseDto> updateUserInfo(UserSignupReqDto reqDto, Long userId);
+
+    ResponseEntity<ResponseDto> updateUserPassword(PasswordChangeReqDto reqDto, Long userId);
+
+    ResponseEntity<ResponseDto> getUserDetailsFromToken(String token);
 }

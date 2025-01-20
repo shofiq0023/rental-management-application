@@ -235,4 +235,46 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             return resUtil.createErrorResponse();
         }
     }
+
+    @Override
+    public ResponseEntity<ResponseDto> getUserDetailsFromToken(String token) {
+        try {
+            String jwt = token.substring(7);
+            Long userId = jwtService.extractUserId(jwt);
+
+            Optional<UserEntity> userEntityOpt = userRepo.findById(userId);
+            if (userEntityOpt.isEmpty())
+                return resUtil.createErrorResponse("No user found with the given id!");
+
+            return resUtil.createSuccessResponse(userEntityOpt.get(), "User information updated successfully!");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> updateUserInfo(UserSignupReqDto reqDto, Long userId) {
+        try {
+            Optional<UserEntity> userOpt = userRepo.findById(userId);
+            if (userOpt.isEmpty())
+                return resUtil.createErrorResponse("No user found with the given id!");
+
+            UserEntity existingEntity = userOpt.get();
+            existingEntity.setName(reqDto.getName());
+            existingEntity.setAddress(reqDto.getAddress());
+            existingEntity.setDateOfBirth(reqDto.getDateOfBirth());
+            existingEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+
+            UserEntity updatedEntity = userRepo.save(existingEntity);
+
+            return resUtil.createSuccessResponse(updatedEntity, "User information updated successfully!");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> updateUserPassword(PasswordChangeReqDto reqDto, Long userId) {
+        return null;
+    }
 }
