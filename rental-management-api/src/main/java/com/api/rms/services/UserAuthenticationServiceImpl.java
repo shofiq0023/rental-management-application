@@ -59,6 +59,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             String token = jwtService.generateToken(claims, user.getUsername());
 
             UserDto userDto = Utility.copyProperties(user, UserDto.class);
+            userDto.setUserType(user.getUserType() == 1 ? "ROLE_ADMIN" : "ROLE_USER");
             AuthenticationResDto resDto = new AuthenticationResDto(token, userDto);
 
             return resUtil.createSuccessResponse(resDto);

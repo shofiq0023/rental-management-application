@@ -10,28 +10,55 @@
             </a>
         </mat-list-item>
 
-        <p class="mt-4">Property Management</p>
-        <mat-list-item role="listitem" class="links" *ngFor="let link of propertyRoutingLinks">
-            <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
-                <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
-                {{link.name}}
-            </a>
-        </mat-list-item>
+        <p *ngIf="isAdminUser()" class="mt-4">Property Management</p>
+        <div *ngIf="isAdminUser()">
+            <mat-list-item role="listitem" class="links" *ngFor="let link of propertyRoutingLinks">
+                <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                    <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                    {{link.name}}
+                </a>
+            </mat-list-item>
+        </div>
 
-        <p class="mt-4">Users Management</p>
-        <mat-list-item role="listitem" class="links" *ngFor="let link of userRoutingLinks">
-            <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
-                <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
-                {{link.name}}
-            </a>
-        </mat-list-item>
+        <p *ngIf="isAdminUser()" class="mt-4">Users Management</p>
+        <div *ngIf="isAdminUser()">
+            <mat-list-item role="listitem" class="links" *ngFor="let link of userRoutingLinks">
+                <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                    <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                    {{link.name}}
+                </a>
+            </mat-list-item>
+        </div>
 
-        <p class="mt-4">Renters Management</p>
-        <mat-list-item role="listitem" class="links" *ngFor="let link of rentersLink">
-            <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
-                <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
-                {{link.name}}
-            </a>
-        </mat-list-item>
+        <p *ngIf="isAdminUser()" class="mt-4">Renters Management</p>
+        <div *ngIf="isAdminUser()">
+            <mat-list-item role="listitem" class="links" *ngFor="let link of rentersLink">
+                <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                    <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                    {{link.name}}
+                </a>
+            </mat-list-item>
+        </div>
+
+        <p *ngIf="isAdminUser()" class="mt-4">Rent Payment</p>
+        <div *ngIf="isAdminUser()">
+            <mat-list-item role="listitem" class="links" *ngFor="let link of rentPaymentRoutingLink">
+                <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                    <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                    {{link.name}}
+                </a>
+            </mat-list-item>
+        </div>
+
+        <p *ngIf="isRenterUser()" class="mt-4">Rent Payment</p>
+        <div *ngIf="isRenterUser()">
+            <mat-list-item role="listitem" class="links" *ngFor="let link of renterRentPaymentLinks">
+                <a routerLink="{{link.routerLink}}" routerLinkActive="link-active">
+                    <mat-icon class="me-3">{{link.listIcon}}</mat-icon>
+                    {{link.name}}
+                </a>
+            </mat-list-item>
+        </div>
+
     </mat-list>
 </div>

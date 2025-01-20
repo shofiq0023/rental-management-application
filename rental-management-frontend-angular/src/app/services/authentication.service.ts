@@ -13,8 +13,13 @@ import { LocalStorageService } from './local-storage.service';
 })
 export class AuthenticationService {
 	private TOKEN: string = 'token';
+	private USER_TYPE: string = 'userType';
 
-	constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
+	constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
+		this.userType = this.localStorageService.getItem(this.USER_TYPE);
+	}
+
+	public userType: string;
 
 	private getJwtHeader(): HttpHeaders {
 		const httpHeaders: HttpHeaders = new HttpHeaders({
@@ -22,6 +27,20 @@ export class AuthenticationService {
 		});
 
 		return httpHeaders;
+	}
+
+	public getUserType(): Observable<string> {
+		let userType = this.localStorageService.getItem(this.USER_TYPE);
+
+		if (userType == undefined || userType == '') {
+			return of(this.userType);
+		}
+
+		return of(this.userType);
+	}
+
+	public changeUserType(userType: string): void {
+		this.userType = userType;
 	}
 
 	// Login API call

@@ -43,6 +43,10 @@ import { RentersAddComponent } from './components/renters-add/renters-add.compon
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UsersApproveComponent } from './components/users-approve/users-approve.component';
 import { AccountSettingsComponent } from './components/account-settings/account-settings.component';
+import { RentPaymentHistoryComponent } from './components/rent-payment-history/rent-payment-history.component';
+import { RentPaymentAddComponent } from './components/rent-payment-add/rent-payment-add.component';
+import { RenterRentPaymentHistoryComponent } from './components/renter-rent-payment-history/renter-rent-payment-history.component';
+import { RenterRentPaymentAddComponent } from './components/renter-rent-payment-add/renter-rent-payment-add.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +67,10 @@ import { AccountSettingsComponent } from './components/account-settings/account-
     RentersAddComponent,
     UsersApproveComponent,
     AccountSettingsComponent,
+    RentPaymentHistoryComponent,
+    RentPaymentAddComponent,
+    RenterRentPaymentHistoryComponent,
+    RenterRentPaymentAddComponent,
   ],
   imports: [
     BrowserModule,

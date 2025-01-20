@@ -45,11 +45,14 @@ export class LoginComponent {
 
 					if (data.userInfo?.userType == undefined || data.userInfo?.userType == null) {
 						userType = this.ROLE_AMDIN;
+					} else {
+						userType = data.userInfo.userType;
 					}
+
+					this.userAuthenticationService.changeUserType(userType);
 
 					this.localStorageService.setItem(this.TOKEN_KEY, data.token);
 					this.localStorageService.setItem(this.USER_TYPE, userType);
-					console.log(res);
 					this.loading = false;
 					this.snackBar.open("Login successful", "", {
 						duration: 3000,
