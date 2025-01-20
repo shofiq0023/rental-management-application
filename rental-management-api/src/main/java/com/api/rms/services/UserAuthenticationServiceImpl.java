@@ -262,7 +262,6 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             UserEntity existingEntity = userOpt.get();
             existingEntity.setName(reqDto.getName());
             existingEntity.setAddress(reqDto.getAddress());
-            existingEntity.setDateOfBirth(reqDto.getDateOfBirth());
             existingEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
             UserEntity updatedEntity = userRepo.save(existingEntity);

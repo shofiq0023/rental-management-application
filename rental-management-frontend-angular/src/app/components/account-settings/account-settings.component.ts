@@ -23,6 +23,7 @@ export class AccountSettingsComponent {
 		private router: Router) {
 		this.config.autoClose = true;
 		this.config.placement = ['top-start', 'top-end'];
+		this.userId = 0;
 	}
 
 	public ngOnInit(): void {
@@ -33,6 +34,7 @@ export class AccountSettingsComponent {
 
 	public isPasswordMatching: boolean = true;
 
+	private userId: number;
 	public name: string = '';
 	public username: string = '';
 	public email: string = '';
@@ -52,6 +54,7 @@ export class AccountSettingsComponent {
 				let userRes: any = apiResponse.data;
 
 				if (userRes != undefined) {
+					this.userId = userRes.id;
 					this.name = userRes.name;
 					this.username = userRes.username;
 					this.email = userRes.email;
@@ -83,6 +86,34 @@ export class AccountSettingsComponent {
 		}
 	}
 
+	public updateAccountInfo(): void {
+		this.isLoading = true;
+
+		let userUpdateReqModel = {
+			name: this.name,
+			address: this.address,
+		}
+
+		this.userAuthenticationService.updateUserInfo(userUpdateReqModel, this.userId).subscribe({
+			next: (res) => {
+				this.isLoading = false;
+
+				this.toastService.showSuccessToast("User updated successfully");
+				// this.router.navigate(['/users-list']);
+			},
+			error: (err) => {
+				this.isLoading = false;
+				let responseData: ApiResponseModel = err.error;
+
+				if (responseData.responseCode == '403') {
+					this.toastService.showFailToast(responseData.message, 5000);
+				} else {
+					this.toastService.showFailToast(responseData.message);
+				}
+			}
+		});
+	}
+
 	public createAccount(): void {
 		this.isLoading = true;
 
@@ -93,7 +124,6 @@ export class AccountSettingsComponent {
 			phone: this.phone,
 			password: this.password,
 			address: this.address,
-			// dateOfBirth: this.getDateString(this.dateOfBirth),
 			userType: this.userType
 		}
 

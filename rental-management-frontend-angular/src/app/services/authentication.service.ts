@@ -58,4 +58,8 @@ export class AuthenticationService {
 		return this.http.get(api.USER_GET_SINGLE, { headers: this.getJwtHeader() });
 	}
 
+	public updateUserInfo(userUpdateReqModel: any, userId: number) {
+		return this.http.put(api.USER_UPDATE + userId, userUpdateReqModel, { headers: this.getJwtHeader() });
+	}
+
 }
