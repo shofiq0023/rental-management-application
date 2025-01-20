@@ -16,6 +16,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class LoginComponent {
 	private TOKEN_KEY: string = "token";
 	private USER_TYPE: string = "userType";
+	private USER_ID: string = "userId";
 	private ROLE_AMDIN: string = "ROLE_ADMIN";
 	constructor(
 		private userAuthenticationService: AuthenticationService,
@@ -53,6 +54,7 @@ export class LoginComponent {
 
 					this.localStorageService.setItem(this.TOKEN_KEY, data.token);
 					this.localStorageService.setItem(this.USER_TYPE, userType);
+					this.localStorageService.setItem(this.USER_ID, data.userInfo?.id);
 					this.loading = false;
 					this.snackBar.open("Login successful", "", {
 						duration: 3000,

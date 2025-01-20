@@ -68,8 +68,17 @@ public class RentPaymentServiceImpl implements RentPaymentService {
             entity.setPaymentDate(new Date(System.currentTimeMillis()));
             entity.setUtilityBill(reqDto.getUtilityBill());
             entity.setOthersBill(reqDto.getOthersBill());
-            entity.setMonthName(Utility.getCurrentMonthName());
-            entity.setYearStr(Utility.getCurrentYear());
+
+            if (reqDto.getPaymentStatus() == 1) { // Active Month rent
+                entity.setMonthName(Utility.getCurrentMonthName());
+                entity.setYearStr(Utility.getCurrentYear());
+                entity.setPaymentStatus("Active month rent");
+            } else { // Due rent
+                entity.setMonthName(Utility.getMonthNameFromSqlDate(reqDto.getRentPaymentDate()));
+                entity.setYearStr(Utility.getYearFromSqlDate(reqDto.getRentPaymentDate()));
+                entity.setPaymentStatus("Due rent");
+            }
+
             entity.setRenter(rentersEntityOpt.get());
             entity.setUser(userEntityOpt.get());
 

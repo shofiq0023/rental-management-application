@@ -29,6 +29,7 @@ export class RentersService {
 	public getAllRenters(): Observable<any> {
 		return this.http.get(api.RENTERS_LIST_SIMPLE, { headers: this.getJwtHeader() });
 	}
+	
 	public deleteRenter(renterId: number, buildingFlatId: number): Observable<any> {
 		return this.http.delete(api.RENTERS_DELETE + `?renterId=${renterId}&buildingFlatId=${buildingFlatId}`, { headers: this.getJwtHeader() });
 	}

@@ -2,6 +2,7 @@ package com.api.rms.utilities;
 
 import org.springframework.beans.BeanUtils;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -26,9 +27,19 @@ public class Utility {
         return currentDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
     }
 
+    public static String getMonthNameFromSqlDate(Date date) {
+        LocalDate localDate = date.toLocalDate();
+        return localDate.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+    }
+
     public static String getCurrentYear() {
         LocalDate currentDate = LocalDate.now();
         int year = currentDate.getYear();
         return String.valueOf(year);
+    }
+
+    public static String getYearFromSqlDate(Date date) {
+        LocalDate localDate = date.toLocalDate();
+        return String.valueOf(localDate.getYear());
     }
 }

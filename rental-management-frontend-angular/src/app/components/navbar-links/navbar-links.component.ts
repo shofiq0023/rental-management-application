@@ -20,7 +20,6 @@ export class NavbarLinksComponent {
 		this.authService.getUserType().subscribe({
 			next: (userType) => {
 				this.userType = userType;
-				console.log("NAVLINK USER TYPE: ", this.userType);
 			}
 		});
 	}

@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbInputDatepickerConfig, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { filter } from 'rxjs';
-import { FlatsModel } from 'src/app/models/data-models/flats.model';
-import { UserSignupRequestModel } from 'src/app/models/data-models/request-models/user-signup.request.model';
+import { NgbInputDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { BuildingsResponseModel } from 'src/app/models/data-models/response-models/buildings.response.model';
 import { FlatsResponseModel } from 'src/app/models/data-models/response-models/flats.response.model';
 import { UserModel } from 'src/app/models/data-models/user.model';
@@ -136,18 +133,5 @@ export class RentersAddComponent {
 				}
 			}
 		});
-	}
-
-	private getDateString(date: NgbDate): string {
-		// Get date string as '28/02/1999'
-		return `${this.getFullNumber(date.day)}-${this.getFullNumber(date.month)}-${this.getFullNumber(date.year)}`;
-	}
-
-	private getFullNumber(date: number): string {
-		if (date < 10) {
-			return `0${date}`;
-		} else {
-			return date.toString();
-		}
 	}
 }

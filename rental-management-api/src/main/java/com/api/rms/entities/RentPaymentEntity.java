@@ -26,6 +26,7 @@ public class RentPaymentEntity extends BaseEntity {
     private String yearStr;
     private double utilityBill;
     private double othersBill;
+    private String paymentStatus;
 
     @OneToOne
     @JoinColumn(name = "renter_id", referencedColumnName = "id")
