@@ -7,8 +7,8 @@
     </a>
 
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-    <form class="form shadow-sm">
-        
+    <form class="form shadow-sm" (submit)="addBuilding()" ngNativeValidate>
+
         <div class="form-group">
             <label for="name">Building Name</label>
             <input type="text" name="name" id="name" class="form-control" placeholder="Name of the building.."
@@ -34,15 +34,14 @@
             </div>
         </div>
 
-        <button mat-flat-button color="basic" class="mat-success" (click)="addEmptyFlatInputBox()">
+        <button mat-flat-button color="basic" class="mat-success" type="button" (click)="addEmptyFlatInputBox()">
             <fa-icon [icon]="faAdd"></fa-icon>
             Add a flat
         </button>
 
 
         <mat-divider class="mt-4"></mat-divider>
-        <button class="mt-2" type="submit" mat-flat-button color="primary" (click)="addBuilding()"
-            [disabled]="isLoading">
+        <button class="mt-2" type="submit" mat-flat-button color="primary" [disabled]="isLoading">
             <mat-icon>add</mat-icon>
             Submit
         </button>

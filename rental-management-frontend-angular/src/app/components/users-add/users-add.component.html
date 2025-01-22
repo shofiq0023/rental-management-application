@@ -7,7 +7,7 @@
     </a>
 
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-    <form class="form shadow-sm">
+    <form class="form shadow-sm" (submit)="createAccount()" ngNativeValidate>
         <div class="row g-3">
             <div class="form-group col-md-6">
                 <label for="name">Name</label>
@@ -83,7 +83,7 @@
             </div>
         </div>
 
-        <button type="submit" mat-flat-button color="primary" (click)="createAccount()" [disabled]="isLoading || !isPasswordMatching">
+        <button type="submit" mat-flat-button color="primary" [disabled]="isLoading || !isPasswordMatching">
             <mat-icon>add</mat-icon>
             Submit
         </button>

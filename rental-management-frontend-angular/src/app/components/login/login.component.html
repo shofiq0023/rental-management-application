@@ -2,7 +2,7 @@
     <h2 class="mb-3 text-center">Login</h2>
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 
-    <form class="form shadow-sm">
+    <form class="form shadow-sm" (submit)="login()" ngNativeValidate>
         <div class="form-group">
             <label for="title">Username</label>
             <input type="text" name="username" id="username" class="form-control" placeholder="Your username.." [(ngModel)]="username">
@@ -14,7 +14,7 @@
         
         <p>Don't have an account? Create a new account <a routerLink="/signup">here</a></p>
 
-        <button type="submit" mat-flat-button color="primary" (click)="login()" [disabled]="loading">
+        <button type="submit" mat-flat-button color="primary" [disabled]="loading">
             <mat-icon>key</mat-icon>
             Login
         </button>

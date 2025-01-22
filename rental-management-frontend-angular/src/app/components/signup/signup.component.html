@@ -1,7 +1,7 @@
 <div class="signup">
     <h2 class="mb-3 text-center">Create a new account</h2>
 
-    <form class="form shadow-sm">
+    <form class="form shadow-sm" (submit)="signup()" ngNativeValidate>
         <div class="row g-3">
             <div class="form-group col-md-6">
                 <label for="name">Name</label>
@@ -69,7 +69,7 @@
 
         <p>Already have an account? <a routerLink="/login">Login</a></p>
 
-        <button type="submit" mat-flat-button color="primary" (click)="signup()" [disabled]="loading || !isPasswordMatching">
+        <button type="submit" mat-flat-button color="primary" [disabled]="loading || !isPasswordMatching">
             <mat-icon>add</mat-icon>
             Submit
         </button>
