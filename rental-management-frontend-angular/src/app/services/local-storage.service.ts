@@ -1,40 +1,57 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class LocalStorageService {
-  private TOKEN: string = 'token';
+	private TOKEN: string = 'token';
+	private USER_TYPE: string = 'userType';
 
-  constructor() { }
+	constructor() { }
 
-  public isUserLoggedIn(): boolean {
-    if (this.getItem(this.TOKEN) == undefined || this.getItem(this.TOKEN) == '') {
-      return false;
-    }
+	public isUserLoggedIn(): boolean {
+		if (this.getItem(this.TOKEN) == undefined || this.getItem(this.TOKEN) == '') {
+			return false;
+		}
 
-      return true;
-  }
+		return true;
+	}
 
-  public setItem(key: string, value: string | undefined): void {
-    localStorage.setItem(key, value == undefined ? '' : value);
-  }
+	public isUserRenter(): boolean {
+		if (this.getItem(this.USER_TYPE) == undefined || this.getItem(this.USER_TYPE) == 'ROLE_ADMIN') {
+			return false;
+		}
 
-  public getItem(key: string): string {
-    let localData: string | null = localStorage.getItem(key);
+		return true;
+	}
 
-    if (localData == null) {
-      return "";
-    }
+	public isUserAdmin(): boolean {
+		if (this.getItem(this.USER_TYPE) == undefined || this.getItem(this.USER_TYPE) == 'ROLE_ADMIN') {
+			return true;
+		}
 
-    return localData;
-  }
+		return false;
+	}
 
-  public removeItem(key: string): void {
-    localStorage.removeItem(key);
-  }
+	public setItem(key: string, value: string | undefined): void {
+		localStorage.setItem(key, value == undefined ? '' : value);
+	}
 
-  public clear(): void {
-    localStorage.clear();
-  }
+	public getItem(key: string): string {
+		let localData: string | null = localStorage.getItem(key);
+
+		if (localData == null) {
+			return "";
+		}
+
+		return localData;
+	}
+
+	public removeItem(key: string): void {
+		localStorage.removeItem(key);
+	}
+
+	public clear(): void {
+		localStorage.clear();
+	}
 }

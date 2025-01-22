@@ -17,6 +17,8 @@ import { RentPaymentHistoryComponent } from './components/rent-payment-history/r
 import { RenterRentPaymentHistoryComponent } from './components/renter-rent-payment-history/renter-rent-payment-history.component';
 import { RentPaymentAddComponent } from './components/rent-payment-add/rent-payment-add.component';
 import { RenterRentPaymentAddComponent } from './components/renter-rent-payment-add/renter-rent-payment-add.component';
+import { rentersGuard } from './guards/renters.guard';
+import { adminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
 	{ path: "", redirectTo: "login", pathMatch: "full" },
@@ -26,21 +28,21 @@ const routes: Routes = [
 	{ path: "dashboard", component: DashboardComponent, canActivate: [authGuard] },
 	{ path: "account-settings", component: AccountSettingsComponent, canActivate: [authGuard] },
 
-	{ path: "building-list", component: BuildingListComponent, canActivate: [authGuard] },
-	{ path: "add-building", component: BuildingAddComponent, canActivate: [authGuard] },
+	{ path: "building-list", component: BuildingListComponent, canActivate: [authGuard, adminGuard] },
+	{ path: "add-building", component: BuildingAddComponent, canActivate: [authGuard, adminGuard] },
 
-	{ path: "users-list", component: UsersListComponent, canActivate: [authGuard] },
-	{ path: "add-user", component: UsersAddComponent, canActivate: [authGuard] },
-	{ path: "approve-user", component: UsersApproveComponent, canActivate: [authGuard] },
+	{ path: "users-list", component: UsersListComponent, canActivate: [authGuard, adminGuard] },
+	{ path: "add-user", component: UsersAddComponent, canActivate: [authGuard, adminGuard] },
+	{ path: "approve-user", component: UsersApproveComponent, canActivate: [authGuard, adminGuard] },
 
-	{ path: "renter-list", component: RentersListComponent, canActivate: [authGuard] },
-	{ path: "add-renter", component: RentersAddComponent, canActivate: [authGuard] },
+	{ path: "renter-list", component: RentersListComponent, canActivate: [authGuard, adminGuard] },
+	{ path: "add-renter", component: RentersAddComponent, canActivate: [authGuard, adminGuard] },
 
-	{ path: "rent-payment-history", component: RentPaymentHistoryComponent, canActivate: [authGuard] },
-	{ path: "rent-payment", component: RentPaymentAddComponent, canActivate: [authGuard] },
+	{ path: "rent-payment-history", component: RentPaymentHistoryComponent, canActivate: [authGuard, adminGuard] },
+	{ path: "rent-payment", component: RentPaymentAddComponent, canActivate: [authGuard, adminGuard] },
 
-	{ path: "renter-rent-payment-history", component: RenterRentPaymentHistoryComponent, canActivate: [authGuard] },
-	{ path: "renter-rent-payment", component: RenterRentPaymentAddComponent, canActivate: [authGuard] },
+	{ path: "renter-rent-payment-history", component: RenterRentPaymentHistoryComponent, canActivate: [authGuard, rentersGuard] },
+	{ path: "renter-rent-payment", component: RenterRentPaymentAddComponent, canActivate: [authGuard, rentersGuard] },
 ];
 
 @NgModule({
