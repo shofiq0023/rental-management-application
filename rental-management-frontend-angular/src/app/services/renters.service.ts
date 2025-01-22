@@ -8,8 +8,7 @@ import { api } from '../api-list';
 	providedIn: 'root'
 })
 export class RentersService {
-	
-	
+	private USER_ID: string = 'userId';
 	private TOKEN: string = 'token';
 
 	constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
@@ -28,6 +27,11 @@ export class RentersService {
 
 	public getAllRenters(): Observable<any> {
 		return this.http.get(api.RENTERS_LIST_SIMPLE, { headers: this.getJwtHeader() });
+	}
+
+	public getAllRentersByUserId(): Observable<any> {
+		let userId = this.localStorageService.getItem(this.USER_ID);
+		return this.http.get(api.RENTERS_LIST_SIMPLE_BY_USER_ID + userId, { headers: this.getJwtHeader() });
 	}
 	
 	public deleteRenter(renterId: number, buildingFlatId: number): Observable<any> {

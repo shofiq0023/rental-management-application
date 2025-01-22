@@ -16,4 +16,6 @@ public interface RentersService {
     ResponseEntity<ResponseDto> deleteRenter(Long renterId, Long buildingFlatId);
 
     ResponseEntity<ResponseDto> getRentersSimpleVer();
+
+    ResponseEntity<ResponseDto> getRentersByUserId(Long userId);
 }

@@ -218,4 +218,15 @@ public class RentersServiceImpl implements RentersService {
             return resUtil.createErrorResponse("There were some error while deleting the renter");
         }
     }
+
+    @Override
+    public ResponseEntity<ResponseDto> getRentersByUserId(Long userId) {
+        try {
+            List<RentersQueryResDto> queryRes = rentersRepo.findAllRentersByUserId(userId);
+
+            return resUtil.createSuccessResponse(queryRes, "Simpler version of renters fetched!");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse("There were some error while deleting the renter");
+        }
+    }
 }

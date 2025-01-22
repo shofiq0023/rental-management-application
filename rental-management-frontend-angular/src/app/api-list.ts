@@ -23,6 +23,7 @@ export const api = {
 
     RENTERS_LIST: "http://localhost:9092/api/v1/renters",
     RENTERS_LIST_SIMPLE: "http://localhost:9092/api/v1/renters/simple",
+    RENTERS_LIST_SIMPLE_BY_USER_ID: "http://localhost:9092/api/v1/renters/user/",
     RENTERS_CREATE: "http://localhost:9092/api/v1/renter",
     RENTERS_SINGLE: "http://localhost:9092/api/v1/renter/",
     RENTERS_DELETE: "http://localhost:9092/api/v1/renter",

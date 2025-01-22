@@ -51,4 +51,9 @@ public class RentersController {
     public ResponseEntity<ResponseDto> getRentersSimpleVer() {
         return rentersService.getRentersSimpleVer();
     }
+
+    @GetMapping("/renters/user/{userId}")
+    public ResponseEntity<ResponseDto> getRentersByUserId(@PathVariable("userId") Long userId) {
+        return rentersService.getRentersByUserId(userId);
+    }
 }
