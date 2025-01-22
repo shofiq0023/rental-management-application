@@ -1,1 +1,121 @@
-<p>rent-payment-history works!</p>
+<div class="renters-list">
+    <h2 class="mb-3">Payment History</h2>
+
+    <a routerLink="/rent-payment" class="mb-4 me-2" mat-flat-button color="primary">
+        <mat-icon>payments</mat-icon>
+        Add a payment
+    </a>
+
+    <div class="mat-elevation-z2 custom-table">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <form class="form">
+            <div class="row g-3">
+                <div class="form-group col-md-4">
+                    <label for="user">User</label>
+                    <div class="d-flex align-items-center">
+                        <select name="user" id="user" class="form-control me-2" [(ngModel)]="userId" (change)="changeSelectedRenter()">
+                            <option selected disabled>Select User...</option>
+                            <option *ngFor="let user of userList" value="{{user.id}}">{{user.name}}</option>
+                        </select>
+                        <button mat-flat-button color="success" (click)="resetUserList()">Reset</button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <mat-table [dataSource]="listData" matSort>
+
+            <ng-container matColumnDef="num">
+                <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+                <mat-cell *matCellDef="let data; let i = index">
+                    {{i + 1}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="renter">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Renter</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.user.name}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.user.phone}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="building">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Building</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.renter.buildingFlat.building.name}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="flat">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Flat</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.renter.buildingFlat.flatNo}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="amount">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Amount</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    ৳{{formatToCurrency(data.amount)}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="utilityBill">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Utility Bill</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    ৳{{formatToCurrency(data.utilityBill)}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="othersBill">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Other Bills</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    ৳{{formatToCurrency(data.othersBill)}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="monthName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Month</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.monthName}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="yearStr">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Year</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.yearStr}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <button mat-icon-button class="text-danger" (click)="openDialog(data.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+
+        <div class="text-center pt-2" *ngIf="!isLoading && listData.data.length === 0">
+            <p>No renters found.</p>
+        </div>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+
+</div>

@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbInputDatepickerConfig, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { BuildingsResponseModel } from 'src/app/models/data-models/response-models/buildings.response.model';
-import { FlatsResponseModel } from 'src/app/models/data-models/response-models/flats.response.model';
 import { RentersResponseModel } from 'src/app/models/data-models/response-models/renters.response.model';
-import { UserModel } from 'src/app/models/data-models/user.model';
 import { ApiResponseModel } from 'src/app/models/response/api-response.model';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { BuildingService } from 'src/app/services/building.service';
 import { RentPaymentService } from 'src/app/services/rent-payment.service';
 import { RentersService } from 'src/app/services/renters.service';
 import { ToastService } from 'src/app/services/toast.service';
@@ -19,15 +14,14 @@ import { ToastService } from 'src/app/services/toast.service';
 })
 export class RentPaymentAddComponent {
 	constructor(
-		private config: NgbInputDatepickerConfig, 
-		private toastService: ToastService, 
-		private router: Router, 
-		private rentersService: RentersService, 
-		private rentPaymentService: RentPaymentService) 
-		{
-			this.config.autoClose = true;
-			this.config.placement = ['top-start', 'top-end'];
-		}
+		private config: NgbInputDatepickerConfig,
+		private toastService: ToastService,
+		private router: Router,
+		private rentersService: RentersService,
+		private rentPaymentService: RentPaymentService) {
+		this.config.autoClose = true;
+		this.config.placement = ['top-start', 'top-end'];
+	}
 
 	public ngOnInit(): void {
 		this.getRenters();

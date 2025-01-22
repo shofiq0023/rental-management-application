@@ -4,7 +4,6 @@ import { NgbDate, NgbInputDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
 import { UserSignupRequestModel } from 'src/app/models/data-models/request-models/user-signup.request.model';
 import { ApiResponseModel } from 'src/app/models/response/api-response.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({

@@ -3,9 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserModel } from 'src/app/models/data-models/user.model';
 import { ApiResponseModel } from 'src/app/models/response/api-response.model';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { RentersService } from 'src/app/services/renters.service';
@@ -17,7 +15,7 @@ import { RentersResponseModel } from 'src/app/models/data-models/response-models
 	styleUrls: ['./renters-list.component.scss']
 })
 export class RentersListComponent {
-	constructor(private toastService: ToastService, public dialog: MatDialog, private userAuthenticationService: AuthenticationService, private rentersService: RentersService) { }
+	constructor(private toastService: ToastService, public dialog: MatDialog, private rentersService: RentersService) { }
 
 	public ngOnInit(): void {
 		this.getRenters();

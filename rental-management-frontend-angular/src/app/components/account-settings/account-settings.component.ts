@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { NgbInputDatepickerConfig, NgbDate, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import { FlatsModel } from 'src/app/models/data-models/flats.model';
-import { UserSignupRequestModel } from 'src/app/models/data-models/request-models/user-signup.request.model';
 import { ApiResponseModel } from 'src/app/models/response/api-response.model';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { BuildingService } from 'src/app/services/building.service';
 import { ToastService } from 'src/app/services/toast.service';
 
 @Component({

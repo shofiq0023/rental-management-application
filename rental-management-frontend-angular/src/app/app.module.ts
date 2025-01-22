@@ -17,8 +17,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { BlogListComponent } from './components/blog-list/blog-list.component';
-import { BlogAddComponent } from './components/blog-add/blog-add.component';
 import { NavbarLinksComponent } from './components/navbar-links/navbar-links.component';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -31,7 +29,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSortModule } from '@angular/material/sort';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
-import { BlogEditComponent } from './components/blog-edit/blog-edit.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { BuildingListComponent } from './components/building-list/building-list.component';
@@ -53,11 +50,8 @@ import { RenterRentPaymentAddComponent } from './components/renter-rent-payment-
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    BlogListComponent,
-    BlogAddComponent,
     NavbarLinksComponent,
     ConfirmationDialogComponent,
-    BlogEditComponent,
     SignupComponent,
     BuildingListComponent,
     BuildingAddComponent,

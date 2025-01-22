@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { FaSymbol, IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { BlogModel } from 'src/app/models/data-models/blog.model';
 import { FlatsModel } from 'src/app/models/data-models/flats.model';
 import { ApiResponseModel } from 'src/app/models/response/api-response.model';
-import { BlogsApiService } from 'src/app/services/blogs-api.service';
 import { BuildingService } from 'src/app/services/building.service';
 import { ToastService } from 'src/app/services/toast.service';
 
@@ -47,7 +44,7 @@ export class BuildingAddComponent {
 			address: this.address,
 			flats: this.flats
 		}
-		
+
 		this.buildingService.addBuilding(buildingsReqObj).subscribe({
 			next: (res) => {
 				this.isLoading = false;
@@ -64,5 +61,5 @@ export class BuildingAddComponent {
 			}
 		});
 	}
-	
+
 }
