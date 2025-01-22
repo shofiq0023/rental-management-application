@@ -30,5 +30,6 @@ export const api = {
 
     RENT_PAYMENT_CREATE: 'http://localhost:9092/api/v1/payment',
     RENT_PAYMENT_GET_ALL: 'http://localhost:9092/api/v1/payments',
+    RENT_PAYMENT_GET_ALL_BY_USER_ID: 'http://localhost:9092/api/v1/payments/user/',
     RENT_PAYMENT_DELETE: 'http://localhost:9092/api/v1/payment/',
 }

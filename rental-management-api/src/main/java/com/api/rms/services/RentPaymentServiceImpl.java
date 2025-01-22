@@ -128,4 +128,15 @@ public class RentPaymentServiceImpl implements RentPaymentService {
             return resUtil.createErrorResponse();
         }
     }
+
+    @Override
+    public ResponseEntity<ResponseDto> getAllPaymentByUserId(Long userId) {
+        try {
+            List<RentPaymentEntity> entityList = rentPaymentRepo.findAllByUserId(userId);
+
+            return resUtil.createSuccessResponse(entityList, "Rent payments");
+        } catch (Exception e) {
+            return resUtil.createErrorResponse();
+        }
+    }
 }

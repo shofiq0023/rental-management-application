@@ -32,7 +32,7 @@ export class RentPaymentHistoryComponent {
 	@ViewChild(MatPaginator)
 	private paginator!: MatPaginator;
 
-	public displayedColumns: string[] = ['num', 'renter', 'phone', 'building', 'flat', 'amount', 'utilityBill', 'othersBill', 'monthName', 'yearStr', 'actions'];
+	public displayedColumns: string[] = ['num', 'renter', 'phone', 'building', 'flat', 'amount', 'utilityBill', 'othersBill', 'monthName', 'yearStr', 'type', 'actions'];
 	public listData!: MatTableDataSource<RentPaymentResponseModel>;
 	public apiData: any[] = [];
 	public searchKey!: string;

@@ -19,6 +19,12 @@ public class RentPaymentController {
         return rentPaymentService.getAllPayment();
     }
 
+    // Get All
+    @GetMapping("/payments/user/{userId}")
+    public ResponseEntity<ResponseDto> getAllPaymentByUserId(@PathVariable("userId") Long userId) {
+        return rentPaymentService.getAllPaymentByUserId(userId);
+    }
+
     // Get One
     @GetMapping("/payment/{paymentId}")
     public ResponseEntity<ResponseDto> getPayment(@PathVariable("paymentId") Long id) {

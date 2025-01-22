@@ -14,4 +14,6 @@ public interface RentPaymentService {
     ResponseEntity<ResponseDto> updatePayment(Long id, RentPaymentReqDto reqDto);
 
     ResponseEntity<ResponseDto> deletePayment(Long id);
+
+    ResponseEntity<ResponseDto> getAllPaymentByUserId(Long userId);
 }

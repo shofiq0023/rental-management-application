@@ -8,6 +8,7 @@ import { LocalStorageService } from './local-storage.service';
 	providedIn: 'root'
 })
 export class RentPaymentService {
+	private USER_ID: string = 'userId';
 	private TOKEN: string = 'token';
 
 	constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
@@ -26,6 +27,11 @@ export class RentPaymentService {
 
 	public getAllRentPayments(): Observable<any> {
 		return this.http.get(api.RENT_PAYMENT_GET_ALL, { headers: this.getJwtHeader() });
+	}
+
+	public getAllRentPaymentsByUserId(): Observable<any> {
+		let userId = this.localStorageService.getItem(this.USER_ID);
+		return this.http.get(api.RENT_PAYMENT_GET_ALL_BY_USER_ID + userId, { headers: this.getJwtHeader() });
 	}
 
 	public deleteRentPayment(paymentId: number): Observable<any> {
