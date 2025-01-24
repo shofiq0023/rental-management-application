@@ -82,7 +82,7 @@ export class UsersListComponent {
 				this.isLoading = false;
 				let apiResponse: ApiResponseModel = res;
 				let data: any = apiResponse.data;
-
+				
 				this.listData = new MatTableDataSource(data);
 				this.listData.sort = this.sort;
 				this.listData.paginator = this.paginator;
@@ -94,5 +94,9 @@ export class UsersListComponent {
 				this.toastService.showFailToast(responseData.message, 5000);
 			}
 		});
+	}
+
+	public getLoggedInUserId(): number {
+		return this.userAuthenticationService.getUserId();
 	}
 }
