@@ -31,7 +31,7 @@ public class RentPaymentServiceImpl implements RentPaymentService {
     @Override
     public ResponseEntity<ResponseDto> getAllPayment() {
         try {
-            List<RentPaymentEntity> entityList = rentPaymentRepo.findAll();
+            List<RentPaymentEntity> entityList = rentPaymentRepo.findAllOrderByCreatedAtDesc();
 
             return resUtil.createSuccessResponse(entityList, "Rent payments");
         } catch (Exception e) {

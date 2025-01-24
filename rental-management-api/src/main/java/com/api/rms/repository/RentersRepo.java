@@ -30,7 +30,8 @@ public interface RentersRepo extends JpaRepository<RentersEntity, Long> {
             "FROM RentersEntity r " +
             "LEFT JOIN UserEntity u ON r.user.id = u.id " +
             "LEFT JOIN BuildingFlatEntity bf ON r.buildingFlat.id = bf.id " +
-            "LEFT JOIN BuildingsEntity b ON bf.building.id = b.id")
+            "LEFT JOIN BuildingsEntity b ON bf.building.id = b.id " +
+            "ORDER BY r.createdAt")
     List<RentersQueryResDto> findAllRenters();
 
     @Query(value = "SELECT new com.api.rms.dtos.RentersQueryResDto(" +

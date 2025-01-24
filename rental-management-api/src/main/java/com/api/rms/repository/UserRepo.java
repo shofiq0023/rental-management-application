@@ -21,6 +21,7 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
     @Query("UPDATE UserEntity SET status = :status WHERE id = :userId")
     void updateUserStatus(int status, Long userId);
 
+    @Query("FROM UserEntity ORDER BY createdAt DESC")
     List<UserEntity> findAllByStatus(int status);
 
     Optional<UserEntity> findByIdAndPassword(Long userId, String encodedOldPassword);

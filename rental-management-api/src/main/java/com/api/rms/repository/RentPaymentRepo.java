@@ -15,4 +15,7 @@ public interface RentPaymentRepo extends JpaRepository<RentPaymentEntity, Long> 
     void deleteByRenterId(Long renterId);
 
     List<RentPaymentEntity> findAllByUserId(Long userId);
+
+    @Query("FROM RentPaymentEntity ORDER BY createdAt DESC")
+    List<RentPaymentEntity> findAllOrderByCreatedAtDesc();
 }

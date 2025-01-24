@@ -13,6 +13,7 @@ import com.api.rms.utilities.GenericResponseUtil;
 import com.api.rms.utilities.Utility;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class BuildingsServiceImpl implements BuildingsService {
     @Override
     public ResponseEntity<ResponseDto> getAllBuildings() {
         try {
-            List<BuildingsEntity> entities = new ArrayList<>(buildingsRepo.findAll());
+            List<BuildingsEntity> entities = new ArrayList<>(buildingsRepo.findAllOrderByCreatedAtDesc());
 
             List<BuildingsDto> dtos = entities.stream().map(b -> Utility.copyProperties(b, BuildingsDto.class)).toList();
 
@@ -180,6 +181,8 @@ public class BuildingsServiceImpl implements BuildingsService {
             buildingsRepo.deleteById(id);
 
             return resUtil.createSuccessResponse("Building deleted successfully");
+        } catch (DataIntegrityViolationException e) {
+            return resUtil.createErrorResponse("Already some renters are assigned in this building!");
         } catch (Exception e) {
             return resUtil.createErrorResponse();
         }
