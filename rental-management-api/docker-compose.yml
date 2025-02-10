@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  rms-app:
+    image: rms-api:latest
+    container_name: rms-api
+    environment:
+      - POSTGRES_HOST=postgresdb
+    ports:
+      - "9092:9092"
+    networks:
+      - network
+    depends_on:
+      - postgresDb
+    restart: on-failure
+
+  postgresDb:
+    image: postgres
+    container_name: postgres
+    ports:
+      - "5434:5432"
+    networks:
+      - network
+    volumes:
+      - volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=rental_management_system
+
+networks:
+  network:
+
+volumes:
+  volume:
