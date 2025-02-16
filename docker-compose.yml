@@ -4,7 +4,9 @@ services:
   rms-frontend:
     image: rms-frontend:latest
     container_name: rms-frontend
-    # build: /rental-management-frontend-angular
+    build:
+      context: ./rental-management-frontend-angular
+      dockerfile: Dockerfile
     ports:
       - "4200:80"
     restart: always
@@ -14,6 +16,9 @@ services:
   rms-app:
     image: rms-api:latest
     container_name: rms-api
+    build:
+      context: ./rental-management-api
+      dockerfile: Dockerfile
     environment:
       - POSTGRES_HOST=postgresdb
     ports:
