@@ -1,6 +1,16 @@
 version: "3.8"
 
 services:
+  rms-frontend:
+    image: rms-frontend:latest
+    container_name: rms-frontend
+    # build: /rental-management-frontend-angular
+    ports:
+      - "4200:80"
+    restart: always
+    depends_on:
+      - rms-app
+
   rms-app:
     image: rms-api:latest
     container_name: rms-api
