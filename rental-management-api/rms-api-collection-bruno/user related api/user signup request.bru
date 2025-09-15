@@ -1,0 +1,23 @@
+meta {
+  name: user signup request
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:9092/api/v1/signup
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Kawsar Uddin",
+    "username": "kawser",
+    "email": "kawser@gmail.com",
+    "phone": "01515188558",
+    "password": "123456",
+    "address": "Dhaka",
+    "dateOfBirth": "29-02-2024"
+  }
+}

@@ -1,0 +1,19 @@
+.form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+}
+
+.login {
+    width: 600px;
+    margin: 180px auto 0 auto;
+}

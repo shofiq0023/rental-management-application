@@ -1,0 +1,15 @@
+meta {
+  name: get all payments
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:9092/api/v1/payments
+  body: none
+  auth: none
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzczOTMwOTEsImV4cCI6MTczNzQ3OTQ5MX0.sapB7D6OM8sRMhIjR7cQFZzekiWv0X3dF8g2pB6BohU
+}
