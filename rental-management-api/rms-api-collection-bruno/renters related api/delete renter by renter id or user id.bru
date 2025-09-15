@@ -1,0 +1,19 @@
+meta {
+  name: delete renter by renter id or user id
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:9092/api/v1/renter?renterId=9
+  body: none
+  auth: none
+}
+
+params:query {
+  renterId: 9
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJUeXBlIjoiUk9MRV9BRE1JTiIsInVzZXJJZCI6MSwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3MzYzNTExMTUsImV4cCI6MTczNjQzNzUxNX0.LSsfYJfBrtWDxTSl5IKdJbdUsJ6Rm1ncNaNJ6VJmBIU
+}

@@ -1,0 +1,49 @@
+<div class="buildings-add">
+    <h2 class="mb-3">Add a new building</h2>
+
+    <a routerLink="/building-list" class="mb-4" mat-flat-button color="primary">
+        <mat-icon>list_alt</mat-icon>
+        See the building list
+    </a>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <form class="form shadow-sm" (submit)="addBuilding()" ngNativeValidate>
+
+        <div class="form-group">
+            <label for="name">Building Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Name of the building.."
+                [(ngModel)]="bulidingName" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address" class="form-control" placeholder="Building address.."
+                [(ngModel)]="address" required>
+        </div>
+
+        <label>Flats</label>
+        <mat-divider></mat-divider>
+        <div class="form-group mt-2" *ngFor="let flat of flats; let i = index">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button mat-flat-button color="warn" (click)="removeFlatInput(i)">
+                        <fa-icon [icon]="faMinus"></fa-icon>
+                    </button>
+                </div>
+                <input type="text" name="blogThumbnailUrl" id="thumbnail" class="ms-2 form-control"
+                    placeholder="Enter the flat number for Flat - {{i + 1}}" [(ngModel)]="flat.flatNo" required>
+            </div>
+        </div>
+
+        <button mat-flat-button color="basic" class="mat-success" type="button" (click)="addEmptyFlatInputBox()">
+            <fa-icon [icon]="faAdd"></fa-icon>
+            Add a flat
+        </button>
+
+
+        <mat-divider class="mt-4"></mat-divider>
+        <button class="mt-2" type="submit" mat-flat-button color="primary" [disabled]="isLoading">
+            <mat-icon>add</mat-icon>
+            Submit
+        </button>
+    </form>
+</div>
