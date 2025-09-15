@@ -1,5 +1,7 @@
 package com.api.rms.configs;
 
+import com.api.rms.utilities.ResponseWriter;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import java.util.List;
 public class SecurityFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
+    private final ResponseWriter responseWriter;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -54,8 +57,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
 
+        } catch (ExpiredJwtException e) {
+            responseWriter.writeResponse(response, 412, "Token Expired!");
         } catch (Exception e) {
-            System.out.println("Something went wrong!");
+            responseWriter.writeResponse(response, 500, "Something went wrong!");
         }
     }
 }

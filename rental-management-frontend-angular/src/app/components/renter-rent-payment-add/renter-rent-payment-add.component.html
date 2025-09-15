@@ -1,0 +1,114 @@
+<div class="renters-add">
+    <h2 class="mb-3">Add rent payment</h2>
+
+    <a routerLink="/renter-rent-payment-history" class="mb-4" mat-flat-button color="primary">
+        <mat-icon>receipt_long</mat-icon>
+        See rent payment history
+    </a>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <form class="form shadow-sm" (submit)="addRentPayment()" ngNativeValidate>
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="user">User</label>
+                <select name="user" id="user" class="form-control" [(ngModel)]="renterId"
+                    (change)="changeSelectedRenter()" required>
+                    <option value="" selected disabled>Select User...</option>
+                    <option *ngFor="let renter of rentersList" [value]="renter.renterId">{{renter.renterName}}
+                        ({{renter.buildingName}} - {{renter.flatNo}})</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="renterName">Renter Name</label>
+                <input type="text" name="renterName" id="renterName" class="form-control"
+                    placeholder="Renter's full name..." [ngModel]="selectedRenter?.renterName" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="renterEmail">Renter Email</label>
+                <input type="text" name="renterEmail" id="renterEmail" class="form-control"
+                    placeholder="Renter's email address..." [ngModel]="selectedRenter?.renterEmail" disabled>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="renterPhone">Renter Phone</label>
+                <input type="text" name="renterPhone" id="renterPhone" class="form-control"
+                    placeholder="Renter's phone number..." [ngModel]="selectedRenter?.renterPhone" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="renterAddress">Renter Address</label>
+                <input type="text" name="renterAddress" id="renterAddress" class="form-control"
+                    placeholder="Renter's address..." [ngModel]="selectedRenter?.renterAddress" disabled>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="renterBuildingName">Rented Building Name</label>
+                <input type="text" name="renterBuildingName" id="renterBuildingName" class="form-control"
+                    placeholder="Renter's building name..." [ngModel]="selectedRenter?.buildingName" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="renterFlatNo">Rented Flat Number</label>
+                <input type="text" name="renterFlatNo" id="renterFlatNo" class="form-control"
+                    placeholder="Renter's flat number..." [ngModel]="selectedRenter?.flatNo" disabled>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row g-3">
+            <div class="form-group col-md-4">
+                <label for="rentAmount">Rent Amount</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">৳</span>
+                    <input type="number" name="rentAmount" id="rentAmount" min="100" class="form-control"
+                        placeholder="Enter rent amount..." [(ngModel)]="rentAmount" required>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="utilityBill">Utility Bill</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">৳</span>
+                    <input type="number" name="utilityBill" id="utilityBill" min="50" class="form-control"
+                        placeholder="Enter utility bill amount..." [(ngModel)]="utilityBill" required>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="othersBill">Other Bills</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">৳</span>
+                    <input type="number" name="othersBill" id="othersBill" class="form-control"
+                        placeholder="Enter other bills amount..." [(ngModel)]="othersBill">
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="paymentStatus">Payment Status</label>
+                <select class="form-control" name="paymentStatus" id="paymentStatus" [(ngModel)]="paymentStatus">
+                    <option value="1">Active Month</option>
+                    <option value="0">Due rent</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateOfBirth">Payment Date</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" id="dateOfBirth" name="dateOfBirth"
+                        [(ngModel)]="paymentDate" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [disabled]="paymentStatus == 1">
+                </div>
+            </div>
+            
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" [disabled]="isLoading || !isPasswordMatching">
+            <mat-icon>add</mat-icon>
+            Submit
+        </button>
+    </form>
+</div>

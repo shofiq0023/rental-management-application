@@ -1,0 +1,78 @@
+<div class="renters-add">
+    <h2 class="mb-3">Add a new renter</h2>
+
+    <a routerLink="/renter-list" class="mb-4" mat-flat-button color="primary">
+        <mat-icon>account_box</mat-icon>
+        See the renters list
+    </a>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <form class="form shadow-sm" (submit)="createRenter()" ngNativeValidate>
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="user">User</label>
+                <select name="user" id="user" class="form-control" [(ngModel)]="userId" (change)="changeSelectedUser()" required>
+                    <option value="" selected disabled>Select User...</option>
+                    <option *ngFor="let user of usersList" [value]="user.id">{{user.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Renter's full name..." [ngModel]="selectedUser?.name" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="Renter's email address..." [ngModel]="selectedUser?.email" disabled>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="Renter's phone number..." [ngModel]="selectedUser?.phone" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="Renter's address..." [ngModel]="selectedUser?.address" disabled>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="nid">National ID</label>
+                <input type="text" name="nid" id="nid" class="form-control" placeholder="Renters's national ID card number..." [(ngModel)]="renterNid" required>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="building">Building</label>
+                <select name="building" id="building" class="form-control" [(ngModel)]="selectedBuildingId" (change)="filterFalts()" required>
+                    <option value="" selected disabled>Select Building...</option>
+                    <option *ngFor="let building of buildingsList" [value]="building.id">{{building.name}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="flat">Flat number</label>
+                <select name="flat" id="flat" class="form-control" [(ngModel)]="buildingFlatId" required>
+                    <option value="" selected disabled>Select Flat number...</option>
+                    <option *ngFor="let flat of selectedFlats" value="{{flat.buildingFlatId}}">{{flat.flatNo}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="deal">Deal with the landlord</label>
+                <textarea name="deal" id="deal" class="form-control" rows="5" [(ngModel)]="renterDeal"></textarea>
+            </div>
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" [disabled]="isLoading || !isPasswordMatching">
+            Submit
+        </button>
+    </form>
+</div>

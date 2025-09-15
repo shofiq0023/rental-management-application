@@ -1,0 +1,93 @@
+<div class="users-list">
+    <h2 class="mb-3">List of users</h2>
+
+    <a routerLink="/users-list" class="mb-4" mat-flat-button color="primary">
+        <mat-icon>group</mat-icon>
+        See the users list
+    </a>
+
+    <div class="mat-elevation-z2 custom-table">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+        <mat-table [dataSource]="listData" matSort>
+
+            <ng-container matColumnDef="num">
+                <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+                <mat-cell *matCellDef="let data; let i = index">
+                    {{i + 1}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.name}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.username}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.email}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.phone}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="userType">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>User Type</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.userType}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="address">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.address}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="signupDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Signup Date</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    {{data.signupDate}}
+                </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                    <button mat-icon-button class="text-success" (click)="openApproveUserDialog(data.id)">
+                        <mat-icon>check_circle</mat-icon>
+                    </button>
+                    <button mat-icon-button class="text-danger" (click)="openDialog(data.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <div class="text-center pt-2" *ngIf="!isLoading && listData.data.length === 0">
+            <p>There is no new approval request.</p>
+        </div>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" showFirstLastButtons></mat-paginator>
+    </div>
+
+</div>

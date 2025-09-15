@@ -1,0 +1,53 @@
+services:
+  rms-frontend:
+    image: rms-frontend:latest
+    container_name: rms-frontend
+    build:
+      context: ./rental-management-frontend-angular
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    restart: always
+    depends_on:
+      - rms-api
+
+  rms-api:
+    image: rms-api:latest
+    container_name: rms-api
+    build:
+      context: ./rental-management-api
+      dockerfile: Dockerfile
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=rental_management_system
+      - POSTGRES_HOST=postgresdb
+      - POSTGRES_PORT=5432
+    ports:
+      - "9092:9092"
+    networks:
+      - network
+    depends_on:
+      - postgresDb
+    restart: on-failure
+
+  postgresDb:
+    image: postgres
+    container_name: postgres
+    networks:
+      - network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=rental_management_system
+    ports:
+      - "5434:5432"
+    restart: on-failure
+
+networks:
+  network:
+
+volumes:
+  postgres_data:

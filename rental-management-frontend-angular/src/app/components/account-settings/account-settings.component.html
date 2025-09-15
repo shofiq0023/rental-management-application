@@ -1,0 +1,82 @@
+<div class="account-settings">
+    <h2 class="mb-3">Account settings</h2>
+
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+    <form class="form shadow-sm" ngNativeValidate (submit)="updateAccountInfo()">
+        <h4>Personal Information</h4>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="User's full name..." [(ngModel)]="name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Pick a unique username..." [(ngModel)]="username" disabled>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control" placeholder="User's email address..." [(ngModel)]="email" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="User's phone number..." [(ngModel)]="phone" disabled>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" class="form-control" placeholder="Enter your address..." [(ngModel)]="address">
+            </div>
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" [disabled]="isLoading">
+            Update
+        </button>
+    </form>
+
+    <hr>
+
+    <form class="form shadow-sm" ngNativeValidate (submit)="updatePassword()">
+        <h4>Change password</h4>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="oldPassword">Old Password</label>
+                <input type="password" name="oldPassword" id="oldPassword" 
+                class="form-control" placeholder="Enter your old password..." 
+                [(ngModel)]="oldPassword" required>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="newPassword">New Password</label>
+                <input type="password" name="newPassword" id="newPassword" 
+                class="form-control" placeholder="Enter your new password..." 
+                [(ngModel)]="newPassword" required>
+                <span *ngIf="!isPasswordMatching" class="text-danger">Passwords do not match</span>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="form-group col-md-12">
+                <label for="confirmNewPassword">Confirm New Password</label>
+                <input type="password" name="confirmNewPassword" id="confirmNewPassword" 
+                class="form-control" placeholder="Enter your password again..." 
+                (keyup)="checkPassword()"
+                [(ngModel)]="confirmNewPassword" required>
+                <span *ngIf="!isPasswordMatching" class="text-danger">Passwords do not match</span>
+            </div>
+        </div>
+
+        <button type="submit" mat-flat-button color="primary" [disabled]="isLoading || !isPasswordMatching">
+            Update
+        </button>
+    </form>
+</div>

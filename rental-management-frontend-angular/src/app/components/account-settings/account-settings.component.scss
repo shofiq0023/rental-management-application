@@ -1,0 +1,19 @@
+.form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+}
+
+.mat-success {
+    background-color: green;
+    color: #fff;
+}

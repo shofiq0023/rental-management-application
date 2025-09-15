@@ -1,0 +1,28 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" opened class="sidenav" *ngIf="!isAuthenticating()">
+        <app-navbar-links></app-navbar-links>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+        <mat-toolbar class="topbar" *ngIf="!isAuthenticating()">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <!-- <span>Rental Management System</span> -->
+
+            <div class="icons text-end">
+                <button mat-flat-button color="warn" (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    Logout
+                </button>
+            </div>
+        </mat-toolbar>
+
+        <div class="container">
+            <div class="my-3">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
